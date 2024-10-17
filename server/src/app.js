@@ -13,7 +13,7 @@ app.use("/api/tareas", tareasRoutes);
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello, world!" });
+  res.json({ message: "Ecomerce CodeSprinters" });
 });
 app.get("/test", (req, res) => {
   throw new Error("This is a test error");
