@@ -1,0 +1,82 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #fff;
+  color: #000;
+  height: 80px;
+}
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+}
+.navbar-hrefs {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-item {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: #fff;
+  border: none;
+  color: #56b280;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-item:hover {
+  color: #128546;
+  text-decoration: underline;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-user {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.advantages-section {
+  padding: 50px 20px;
+  background-color: white;
+  margin: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.advantages-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 30px;
+}
+
+.advantages-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.advantage-item {
+  width: 45%;
+  margin-bottom: 20px;
+}
+
+.advantage-subtitle {
+  font-size: 1.5rem;
+  color: #128546;
+  margin-bottom: 15px;
+}
+
+.advantage-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.advantage-list li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
