@@ -1,4 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
+  overflow-x: hidden;
   font-family: "Roboto", sans-serif;
   color: #333;
   background-color: #f9f9f9;

@@ -1,5 +1,7 @@
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="home-banner">
@@ -22,7 +24,12 @@ const Home = () => {
             ¡Descubre nuestra colección de pinturas! Desde óleos hasta
             acuarelas, ¡tenemos todo lo que necesitas!
           </p>
-          <button className="product-button">Ver más</button>
+          <button
+            className="product-button"
+            onClick={() => navigate("/products/pinturas")}
+          >
+            Ver más
+          </button>
         </div>
         <div className="product-item">
           <img className="product-img" src="home/escultura.jpg"></img>
@@ -31,7 +38,12 @@ const Home = () => {
             ¡Descubre nuestra colección de esculturas! Desde mármol hasta
             bronce, ¡tenemos todo lo que necesitas!
           </p>
-          <button className="product-button">Ver más</button>
+          <button
+            className="product-button"
+            onClick={() => navigate("/products/esculturas")}
+          >
+            Ver más
+          </button>
         </div>
         <div className="product-item">
           <img className="product-img" src="home/tejidos.jpg"></img>
@@ -40,7 +52,12 @@ const Home = () => {
             ¡Descubre nuestra colección de tejidos! Desde lana hasta algodón,
             ¡tenemos todo lo que necesitas!
           </p>
-          <button className="product-button">Ver más</button>
+          <button
+            className="product-button"
+            onClick={() => navigate("/products/tejidos")}
+          >
+            Ver más
+          </button>
         </div>
       </div>
       <div className="advantages-section">

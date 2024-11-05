@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import { Card, Input, Button } from "../components/ui";
 import { useForm } from "react-hook-form";
+import { Input, Button } from "../../components/ui";
+import { Card } from "antd";
 import axios from "axios";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-const LoginPage = () => {
+import "./styles.css";
+const Login = () => {
   const navigate = useNavigate();
   const { setUser, setErrorsAuth, errorsAuth } = useContext(AuthContext);
   const {
@@ -15,7 +17,8 @@ const LoginPage = () => {
   } = useForm();
   const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
   const onSubmit = handleSubmit(async (data) => {
-    try {
+    console.log("paso");
+    /*  try {
       const response = await axios.post(baseURL, data, {
         withCredentials: true,
       });
@@ -30,43 +33,53 @@ const LoginPage = () => {
         setErrorsAuth(error.response.data);
       }
       setErrorsAuth([error.response.data.message]);
-    }
+    } */
   });
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="login-container">
       <Card>
         {JSON.stringify(errorsAuth) !== "null" && (
-          <div className="bg-red-500 text-white p-4 my-4">
+          <div className="login-title">
             {errorsAuth.map((error, index) => (
               <p key={index}>{error}</p>
             ))}
           </div>
         )}
-        <h3 className="text-2xl font-bold text-blue-600 my-6 mx-4">Login</h3>
-        <form onSubmit={onSubmit} className="space-y-4 w-[50vw]">
+        <h3 className="login-title">Iniciar Sesión</h3>
+        <form onSubmit={onSubmit} className="space-y-4 w-[30vw]">
           <Input
+            className="input-login"
             label="Email"
             type="email"
             placeholder="Email"
             {...register("email", { required: true })}
           />
           {errors.email && (
-            <span className="text-red-500">Este campo es requerido</span>
+            <span className="error-text">Este campo es requerido</span>
           )}
           <Input
+            className="input-login"
             label="Password"
             type="password"
             placeholder="Contraseña"
             {...register("password", { required: true })}
           />
           {errors.password && (
-            <span className="text-red-500">Este campo es requerido</span>
+            <span className="error-text">Este campo es requerido</span>
           )}
-          <Button>Iniciar Sesión</Button>
+          <div>
+            <Button className="button-login">Iniciar Sesión</Button>
+          </div>
         </form>
         <div>
-          <p className="text-center text-white font-bold mt-4">
-            ¿No tienes cuenta? <Link to={"/register"}>Registrate</Link>
+          <p className="register-text">
+            ¿No tienes cuenta?{" "}
+            <Link
+              className="text-[#56b280] hover:text-[#128546]"
+              to={"/register"}
+            >
+              Registrate
+            </Link>
           </p>
         </div>
       </Card>
@@ -74,4 +87,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
