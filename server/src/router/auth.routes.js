@@ -1,27 +1,14 @@
-import { Router } from "express";
-import {
-  registrarse,
-  ingresar,
-  salir,
-  perfil
-} from "../controllers/auth.controller.js"
+import Router from "express-promise-router";
+import {registrarse, ingresar, salir, perfil} from "../controllers/auth.controller.js"
 
 const router = Router();
 
-router.post("/registrarse", (req, res) => {
-  res.json({ message: "Signup route" });
-});
+router.post("/registrarse",registrarse);
 
-router.post("/ingresar", (req, res) => {
-  res.json({ message: "Signin route" });
-});
+router.post("/ingresar", ingresar);
 
-router.post("/salir", (req, res) => {
-  res.json({ message: "Logout route" });
-});
+router.post("/salir", salir);
 
-router.get("/perfil", (req, res) => {
-  res.json({ message: "Profile route" });
-});
+router.get("/perfil", perfil);
 
 export default router;

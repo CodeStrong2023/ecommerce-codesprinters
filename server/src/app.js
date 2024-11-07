@@ -19,7 +19,6 @@ app.get("/", (req, res) => {
 });
 app.get("/test", (req, res) => {
   throw new Error("This is a test error");
-  res.send("Hello, test!");
 });
 
 //manejando errores
