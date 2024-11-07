@@ -9,6 +9,8 @@ import ProductsPage from "./pages/Products/products";
 import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
+import Register from  "./pages/Register/Register";
+
 import "./App.css";
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register/>}/>
         <Route path="/admin" element={<Apps />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/products/:category?" element={<ProductsPage />} />

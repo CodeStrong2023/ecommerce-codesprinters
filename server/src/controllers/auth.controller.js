@@ -18,6 +18,14 @@ export const registrarse = async (req, res, next) => {
     const token = await createAccessToken({ id: result.rows[0].id });
     console.log(result);
 
+        //codigo de generacion de cookie 
+        res.cookie("token",token,{
+            // httpOnly:true,
+            secure:"true",
+            sameSite: "none",
+            maxAge: 60*60*24*1000, })
+        return res.json({ token: token });
+
     //codigo de generacion de cookie
     res.cookie("token", token, {
       httpOnly: true,
