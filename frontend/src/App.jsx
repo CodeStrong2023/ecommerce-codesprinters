@@ -10,6 +10,7 @@ import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
 import Register from  "./pages/Register/Register";
+import NotFound from "./pages/NotFound/NotFound";
 
 import "./App.css";
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/denied" element={<PaymentError />} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       <Footer />
     </>
