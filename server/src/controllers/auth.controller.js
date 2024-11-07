@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 import bcrypt from "bcrypt";
-import { creatAccessToken } from "../libs/jwt.js";
+import { createAccessToken } from "../libs/jwt.js";
 
 // FUNCION REGISTRARSE
 export const registrarse = async (req, res, next) => {
@@ -15,7 +15,7 @@ export const registrarse = async (req, res, next) => {
       [nombre, email, hashedcontrasena]
     );
 
-    const token = await creatAccessToken({ id: result.rows[0].id });
+    const token = await createAccessToken({ id: result.rows[0].id });
     console.log(result);
 
     //codigo de generacion de cookie
