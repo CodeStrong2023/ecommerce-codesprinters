@@ -20,7 +20,8 @@ export const registrarse = async (req, res, next) => {
 
         //codigo de generacion de cookie 
         res.cookie("token",token,{
-            httpOnly:true,
+            // httpOnly:true,
+            secure:"true",
             sameSite: "none",
             maxAge: 60*60*24*1000, })
         return res.json({ token: token });
@@ -52,11 +53,11 @@ export const ingresar = async (req, res) => {
         // Generar token
         const token = await createAccessToken({ id: result.rows[0].id });
         res.cookie("token", token, {
-           httpOnly: true,
-            secure: false,
+            httpOnly: true,
+            secure: true,
             sameSite: "none",
             maxAge: 60 * 60 * 24 * 1000, // 1 día
-        });
+        });// configuracion de la cookie
 
         // Enviar respuesta
         return res.status(200).json({
