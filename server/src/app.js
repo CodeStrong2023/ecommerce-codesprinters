@@ -10,7 +10,12 @@ const app = express();
 app.use[morgan("dev")]; //Para ver errores en consola
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(
+  cors({
+    origin: ORIGIN,
+    credentials: true,
+  })
+);
 app.use("/api", productosRoutes);
 app.use("/api/auth", authRoutes);
 
