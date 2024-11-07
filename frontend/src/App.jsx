@@ -6,6 +6,8 @@ import Login from "./pages/Login/Login";
 import ProductPage from "./pages/Product/Product";
 import ProductsPage from "./pages/products/products";
 import Cart from "./pages/Cart/Cart";
+import Confirmation from "./pages/Confirmation/Confirmation";
+import PaymentError from "./pages/Denied/Denied";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/Products" element={<ProductsPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/Confirmation" element={<Confirmation />} />
+        <Route path="/Denied" element={<PaymentError />} />
       </Routes>
       <Footer />
     </>

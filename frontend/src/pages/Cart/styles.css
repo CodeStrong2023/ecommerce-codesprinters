@@ -131,26 +131,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0;
-    padding-top: 15px;
+    margin: 0 auto;
+    padding-top: 20px;
+    max-width: 80%; /* Limita el ancho de la sección */
 }
 
 .cart-summary-left {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding-left: 55%;
+    padding-left: 0; /* Elimina el padding extra */
 }
 
 .subtotal {
     font-size: 18px;
     font-weight: bold;
-    text-align: right;
+    text-align: right; /* Cambia a left para alinear con el texto */
 }
 
 .shipping-note {
     color: #595959;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .checkout-button {
@@ -161,6 +162,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-left: 20px;
 }
 
 .footer {
