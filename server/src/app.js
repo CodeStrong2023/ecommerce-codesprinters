@@ -2,12 +2,16 @@ import express from "express";
 import morgan from "morgan";
 import productosRoutes from "./router/productos.routes.js";
 import authRoutes from "./router/auth.routes.js";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { ORIGIN } from "./config.js";
 const app = express();
 
-//middlewares
-app.use[morgan("dev")]; //Para ver errores en consola
+//Middlewares
+app.use[morgan("dev")]; 
+// Para leer las Cookies 
+app.use(cookieParser());
+//Para ver errores en consola
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
