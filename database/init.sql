@@ -16,7 +16,7 @@ CREATE TABLE usuarios(
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255)  UNIQUE NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

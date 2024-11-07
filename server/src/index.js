@@ -1,6 +1,4 @@
 import app from "./app.js";
-
-app.listen(3000);
-console.log("Servidor en el puerto",3000);
-
-
+import { PORT } from "./config.js";
+app.listen(PORT);
+console.log("Servidor en el puerto", PORT);
