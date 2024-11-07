@@ -10,6 +10,8 @@ import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
 import "./App.css";
+import PagoMercado from "./components/MercadoPago/PagoMercado";
+
 function App() {
   return (
     <>
@@ -23,6 +25,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/denied" element={<PaymentError />} />
+        <Route path="/mercadopago" element={<PagoMercado />} />
       </Routes>
       <Footer />
     </>

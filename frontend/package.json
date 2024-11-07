@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@mercadopago/sdk-react": "^0.0.19",
     "antd": "^5.21.6",
     "axios": "^1.7.7",
     "frontend": "file:",
