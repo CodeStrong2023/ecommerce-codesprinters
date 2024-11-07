@@ -1,35 +1,64 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-// ProductPage.js
 import "./styles.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { addToCart } from "../../utils/cart";
-const product = {
-  id: 1,
-  nombre: "Pintura abstracta 1",
-  descripcion: "Obra de arte abstracta en colores vibrantes.",
-  autor: "Artista 1",
-  precio: 1500.0,
-  created_at: "2024-01-01T10:00:00Z",
-  updated_at: "2024-01-01T10:00:00Z",
-  dimensiones: "100x100 cm",
-  tipo_obra: "cuadro",
-  url_imagen: "https://via.placeholder.com/150",
-};
-const ProductPage = () => {
-  const [quantity, setQuantity] = useState(1);
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+const ProductPage = () => {
+  const { id } = useParams(); 
+  const [product, setProduct] = useState(null);
+
+  const products = [
+    {
+      id: 8,
+      nombre: "Cuadro surrealista",
+      descripcion: "Cuadro surrealista inspirado en sueños.",
+      autor: "Artista 8",
+      precio: 2500.0,
+      dimensiones: "110x90 cm",
+      tipo_obra: "cuadro",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+    {
+      id: 9,
+      nombre: "Escultura en madera",
+      descripcion: "Escultura tallada en madera natural.",
+      autor: "Artista 9",
+      precio: 3500.0,
+      dimensiones: "75x40x35 cm",
+      tipo_obra: "escultura",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+    {
+      id: 10,
+      nombre: "Pintura floral",
+      descripcion: "Cuadro de flores al óleo.",
+      autor: "Artista 10",
+      precio: 1300.0,
+      dimensiones: "100x50 cm",
+      tipo_obra: "cuadro",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+  ];
+
+  useEffect(() => {
+    const foundProduct = products.find(p => p.id === parseInt(id));
+    if (foundProduct) {
+      setProduct(foundProduct);
+    }
+  }, [id]);
+
+  const handleCart = () => {
+    if (product) {
+      addToCart(product);
     }
   };
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-  const handleCart = () => {
-    addToCart(product);
-  };
+  if (!product) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="product-container">
       <header>
@@ -37,37 +66,21 @@ const ProductPage = () => {
       </header>
 
       <div className="product">
-        <img src={"/img/descarga.jpeg"} alt="Producto" />
+        <img src={product.url_imagen} alt={product.nombre} />
         <div className="product-details">
           <h1 className="nombre">{product.nombre}</h1>
           <h3>Descripción</h3>
           <p className="description">{product.descripcion}</p>
-          <div className="price">$ {product.precio} </div>
-          <div className="quantity-cart">
-            <div className="quantity">
-              <label htmlFor="quantity">Cantidad</label>
-              <div className="quantity-controls">
-                <button className="quantity-btn" onClick={decreaseQuantity}>
-                  -
-                </button>
-                <input
-                  type="number"
-                  id="quantity"
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                />
-                <button className="quantity-btn" onClick={increaseQuantity}>
-                  +
-                </button>
-              </div>
-            </div>
-            <button onClick={handleCart} className="add-to-cart">
-              + Añadir al carrito
-            </button>
-          </div>
+          <p className="author">Artista: {product.autor}</p>
+          <p className="dimensions">Dimensiones: {product.dimensiones}</p>
+          <div className="price">$ {product.precio.toFixed(2)}</div>
+          <button onClick={handleCart} className="add-to-cart">
+            + Añadir al carrito
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
 export default ProductPage;
