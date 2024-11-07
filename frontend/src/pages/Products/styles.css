@@ -1,7 +1,7 @@
 /* General Layout */
 .min-h-screen {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
 }
 
@@ -166,7 +166,8 @@
 /* ... código previo ... */
 
 /* Estilos adicionales para los filtros */
-.filter-select, .filter-range {
+.filter-select,
+.filter-range {
   width: 90%;
   padding: 10px;
   border-radius: 5px;
@@ -176,7 +177,8 @@
   margin-top: 10px;
 }
 
-.filter-select:focus, .filter-range:focus {
+.filter-select:focus,
+.filter-range:focus {
   outline: none;
   border-color: #27ae60;
   box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);

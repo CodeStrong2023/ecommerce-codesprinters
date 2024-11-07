@@ -1,79 +1,79 @@
-.container {
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
+.denied-container {
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
 }
 .error-icon {
-    font-size: 60px;
-    color: #E74C3C;
-    margin-bottom: 20px;
+  font-size: 60px;
+  color: #e74c3c;
+  margin-bottom: 20px;
 }
 .title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
 }
 .order-number {
-    color: #E74C3C;
-    font-weight: 600;
-    margin-bottom: 20px;
+  color: #e74c3c;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 .message {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 30px;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 30px;
 }
 .button {
-    background-color: #6EC283;
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background-color 0.3s;
+  background-color: #6ec283;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s;
 }
 .button:hover {
-    background-color: #5da76d;
+  background-color: #5da76d;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding: 20px;
-    }
-    .title {
-        font-size: 20px;
-    }
-    .error-icon {
-        font-size: 50px;
-    }
-    .message {
-        font-size: 13px;
-    }
-    .button {
-        padding: 10px 20px;
-    }
+  .denied-container {
+    padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .error-icon {
+    font-size: 50px;
+  }
+  .message {
+    font-size: 13px;
+  }
+  .button {
+    padding: 10px 20px;
+  }
 }
 
 @media (max-width: 480px) {
-    .logo img {
-        width: 80px;
-    }
-    .error-icon {
-        font-size: 40px;
-    }
-    .title {
-        font-size: 18px;
-    }
-    .message {
-        font-size: 12px;
-    }
-    .button {
-        padding: 8px 16px;
-    }
+  .logo img {
+    width: 80px;
+  }
+  .error-icon {
+    font-size: 40px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .message {
+    font-size: 12px;
+  }
+  .button {
+    padding: 8px 16px;
+  }
 }

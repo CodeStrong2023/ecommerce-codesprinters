@@ -9,6 +9,7 @@ import ProductsPage from "./pages/products/products";
 import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
+import "./App.css";
 function App() {
   return (
     <>
@@ -16,12 +17,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Admin" element={<Apps />} />
+        <Route path="/admin" element={<Apps />} />
         <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/Products" element={<ProductsPage />} />
+        <Route path="/products/:category?" element={<ProductsPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/Confirmation" element={<Confirmation />} />
-        <Route path="/Denied" element={<PaymentError />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/denied" element={<PaymentError />} />
       </Routes>
       <Footer />
     </>
