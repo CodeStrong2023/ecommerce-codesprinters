@@ -1,0 +1,79 @@
+.confirm-container {
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+.confirmation-icon {
+  font-size: 60px;
+  color: #27ae60cc;
+  margin-bottom: 20px;
+}
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+.order-number {
+  color: #27ae60cc;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.message {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 30px;
+}
+.button {
+  background-color: #27ae60cc;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+.button:hover {
+  background-color: #27ae60cc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .confirm-container {
+    padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .confirmation-icon {
+    font-size: 50px;
+  }
+  .message {
+    font-size: 13px;
+  }
+  .button {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 80px;
+  }
+  .confirmation-icon {
+    font-size: 40px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .message {
+    font-size: 12px;
+  }
+  .button {
+    padding: 8px 16px;
+  }
+}

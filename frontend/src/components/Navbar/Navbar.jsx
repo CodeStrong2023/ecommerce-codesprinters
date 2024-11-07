@@ -14,8 +14,14 @@ const Navbar = () => {
         <button className="navbar-item" onClick={() => navigate("/products")}>
           Productos
         </button>
-        <button className="navbar-item" onClick={() => navigate("/contact")}>
-          Contacto
+        <button className="navbar-item" onClick={() => navigate("/login")}>
+          Iniciar Sesión
+        </button>
+        <button className="navbar-item" onClick={() => navigate("/register")}>
+          Registrarse
+        </button>
+        <button className="navbar-item" onClick={() => navigate("/cart")}>
+          Carrito
         </button>
       </ul>
       <div className="navbar-user">

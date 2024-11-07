@@ -1,0 +1,185 @@
+/* General Layout */
+.min-h-screen {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Barra lateral de filtros */
+.filters-sidebar {
+  width: 300px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100vh;
+  overflow-y: auto;
+  transition: left 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.filters-sidebar.visible {
+  left: 0;
+  opacity: 1;
+}
+
+.filters-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-title {
+  margin-top: 50px;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Estilos para el filtro de búsqueda */
+.filter-input {
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #27ae60;
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+}
+
+/* Estilos para el filtro de orden por precio */
+.filter-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #27ae60;
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+}
+
+/* Botón para mostrar/ocultar la barra lateral */
+.toggle-sidebar-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1100;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-sidebar-button:hover {
+  background-color: #1b5e20;
+}
+
+/* Sección de productos */
+.products-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 4rem 5%;
+  transition: margin-left 0.3s ease;
+}
+
+.products-section.with-sidebar {
+  margin-left: 300px;
+}
+
+/* Estilo de la grilla de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 4rem;
+}
+
+.product-card {
+  box-shadow: 0 0 15px 0 #0003;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.product-image {
+  width: 150px;
+  height: 150px;
+  background: #bbbf;
+  border-radius: 10px;
+  margin: 0 auto 1rem;
+  margin-top: 10px;
+}
+
+.product-name {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Botón dentro de las tarjetas de productos */
+.button {
+  margin-bottom: 10px;
+  background: #27ae60cc;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.button:hover {
+  background: #1b5e20;
+  transform: scale(1.05);
+}
+/* ... código previo ... */
+
+/* Estilos adicionales para los filtros */
+.filter-select,
+.filter-range {
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
+}
+
+.filter-select:focus,
+.filter-range:focus {
+  outline: none;
+  border-color: #27ae60;
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+}
