@@ -6,8 +6,9 @@ body {
   background-color: #f9f9f9;
 }
 
-.container {
+.product-container {
   max-width: 1200px;
+  min-height: 80vh;
   margin: 0 auto;
   padding: 20px;
   display: flex;

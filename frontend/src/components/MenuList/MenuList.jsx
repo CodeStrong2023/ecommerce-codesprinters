@@ -1,20 +1,28 @@
-import { DownOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 const items = [
   {
-    label: <a href="/login">Iniciar Sesión</a>,
+    label: <a href="/">Inicio</a>,
     key: "0",
   },
   {
-    label: <a href="/register">Registrarse</a>,
+    label: <a href="/products/">Productos</a>,
     key: "1",
+  },
+  {
+    label: <a href="/login">Iniciar Sesión</a>,
+    key: "2",
+  },
+  {
+    label: <a href="/register">Registrarse</a>,
+    key: "3",
   },
   {
     type: "divider",
   },
   {
     label: <a href="/cart">Carrito</a>,
-    key: "3",
+    key: "4",
   },
 ];
 const MenuList = () => (
@@ -26,7 +34,7 @@ const MenuList = () => (
   >
     <a onClick={(e) => e.preventDefault()}>
       <Space>
-        <DownOutlined />
+        <MenuOutlined />
       </Space>
     </a>
   </Dropdown>
