@@ -1,9 +1,10 @@
 import { pool } from "../db.js";
 //LISTAR UN SOLO PRODUCTO
 export const listarProducto = async (req, res) => {
-  const resultado = await pool.query("SELECT * FROM productos_arte WHERE id = $1", [
-    req.params.id,
-  ]);
+  const resultado = await pool.query(
+    "SELECT * FROM productos_arte WHERE id = $1",
+    [req.params.id]
+  );
 
   if (resultado.rowCount === 0) {
     return res.status(404).json({ message: "El Producto no existe" });
@@ -13,20 +14,36 @@ export const listarProducto = async (req, res) => {
 // LISTAR TODOS LOS PRODUCTOS
 export const listarProductos = async (req, res) => {
   const resultado = await pool.query("SELECT* FROM productos_arte");
-  console.log(resultado);
   return res.json(resultado.rows);
 };
 
 export const crearProducto = async (req, res, next) => {
-  const { nombre, descripcion, autor, precio, dimensiones, tipo_obra, url_imagen } = req.body;
-  
+  const {
+    nombre,
+    descripcion,
+    autor,
+    precio,
+    dimensiones,
+    tipo_obra,
+    url_imagen,
+  } = req.body;
+
   // Lista de campos requeridos
-  const requiredFields = ["nombre", "descripcion", "precio", "dimensiones", "tipo_obra", "url_imagen"];
-  const missingFields = requiredFields.filter(field => !req.body[field]);
+  const requiredFields = [
+    "nombre",
+    "descripcion",
+    "precio",
+    "dimensiones",
+    "tipo_obra",
+    "url_imagen",
+  ];
+  const missingFields = requiredFields.filter((field) => !req.body[field]);
 
   // Aviso si faltan campos
   const warningMessage = missingFields.length
-    ? `Los siguientes campos están ausentes y deberían considerarse: ${missingFields.join(", ")}`
+    ? `Los siguientes campos están ausentes y deberían considerarse: ${missingFields.join(
+        ", "
+      )}`
     : null;
 
   try {
@@ -41,43 +58,66 @@ export const crearProducto = async (req, res, next) => {
         precio || null,
         dimensiones || null,
         tipo_obra || null,
-        url_imagen || null
+        url_imagen || null,
       ]
     );
-    
+
     // Respuesta con el producto creado y un mensaje de advertencia, si corresponde
     res.status(201).json({
       producto: resultado.rows[0],
-      warning: warningMessage
+      warning: warningMessage,
     });
-    
   } catch (error) {
-    if (error.code === "23505") { // Error de restricción de unicidad
-      return res.status(400).json({ message: "Ya existe un Producto con ese nombre" });
+    if (error.code === "23505") {
+      // Error de restricción de unicidad
+      return res
+        .status(400)
+        .json({ message: "Ya existe un Producto con ese nombre" });
     }
     console.log("Fallo el servidor", error);
-    next(error);  // Pasar el error al middleware de manejo de errores
+    next(error); // Pasar el error al middleware de manejo de errores
   }
 };
 // ACTUALIZAR PRODUCTO
 export const actualizarProducto = async (req, res) => {
   const { id } = req.params;
-  const { nombre, descripcion, autor, precio, dimensiones, tipo_obra, url_imagen } = req.body;
+  const {
+    nombre,
+    descripcion,
+    autor,
+    precio,
+    dimensiones,
+    tipo_obra,
+    url_imagen,
+  } = req.body;
 
   // Verificamos si el producto existe antes de intentar actualizarlo
-  const consultaProducto = await pool.query("SELECT * FROM productos_arte WHERE id = $1", [id]);
+  const consultaProducto = await pool.query(
+    "SELECT * FROM productos_arte WHERE id = $1",
+    [id]
+  );
 
   if (consultaProducto.rowCount === 0) {
     // Si el producto no existe, devolvemos un aviso sin intentar la actualización
     return res.status(404).json({
       message: "El producto no existe",
-      warning: `No se encontró un producto con el id ${id}. Verifique el id ingresado.`
+      warning: `No se encontró un producto con el id ${id}. Verifique el id ingresado.`,
     });
   }
 
   // Lista de campos que deberían estar en el request body para la actualización
-  const requiredFields = ["nombre", "descripcion", "autor", "precio", "dimensiones", "tipo_obra", "url_imagen"];
-  const missingFields = requiredFields.filter(field => req.body[field] === undefined);
+  const requiredFields = [
+    "nombre",
+    "descripcion",
+    "autor",
+    "precio",
+    "dimensiones",
+    "tipo_obra",
+    "url_imagen",
+  ];
+  const missingFields = requiredFields.filter(
+    (field) => req.body[field] === undefined
+  );
 
   // Actualización de los campos proporcionados
   const result = await pool.query(
@@ -99,12 +139,17 @@ export const actualizarProducto = async (req, res) => {
     return res.status(200).json({
       message: "Producto actualizado correctamente",
       producto: result.rows[0],
-      warning: missingFields.length > 0 ? `Los siguientes campos no se proporcionaron y no se actualizaron: ${missingFields.join(", ")}` : null
+      warning:
+        missingFields.length > 0
+          ? `Los siguientes campos no se proporcionaron y no se actualizaron: ${missingFields.join(
+              ", "
+            )}`
+          : null,
     });
   } else {
     // Si hubo algún problema en la actualización, respondemos con un error general
     return res.status(500).json({
-      message: "Error al actualizar el producto. Inténtelo nuevamente."
+      message: "Error al actualizar el producto. Inténtelo nuevamente.",
     });
   }
 };
@@ -112,9 +157,10 @@ export const actualizarProducto = async (req, res) => {
 // ELIMINAR PRODUCTO
 export const eliminarProducto = async (req, res, next) => {
   try {
-    const resultado = await pool.query("DELETE FROM productos_arte WHERE id = $1", [
-      req.params.id,
-    ]);
+    const resultado = await pool.query(
+      "DELETE FROM productos_arte WHERE id = $1",
+      [req.params.id]
+    );
 
     if (resultado.rowCount === 0) {
       return res.status(404).json({
@@ -122,7 +168,9 @@ export const eliminarProducto = async (req, res, next) => {
       });
     }
 
-    return res.status(200).json({ message: "Producto eliminado correctamente" });
+    return res
+      .status(200)
+      .json({ message: "Producto eliminado correctamente" });
   } catch (error) {
     console.log("Error al intentar eliminar el producto:", error);
     next(error); // Pasar el error al middleware de manejo de errores

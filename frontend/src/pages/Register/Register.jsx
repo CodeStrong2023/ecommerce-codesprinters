@@ -7,18 +7,22 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import axios from "axios";
+import { registerUser } from "../../utils/api";
 function Register() {
   const navigate = useNavigate();
   const { setUser, setErrorsAuth, errorsAuth } = useContext(AuthContext);
-  const {  register,handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
 
   const onSubmit = handleSubmit(async (data) => {
-   const res = axios.post("http://localhost:3000/api/auth/registrarse",data,{
-        whithCredentials: true,
-     });
-        console.log(res);
-    });
+    console.log(data);
+    const res = await registerUser(data);
+    console.log(res);
+  });
 
   return (
     <div className="login-container">
@@ -37,7 +41,7 @@ function Register() {
             label="Nombre Completo"
             type="text"
             placeholder="Nombre Completo"
-            {...register("fullName", { required: true })}
+            {...register("nombre", { required: true })}
           />
           {errors.fullName && (
             <span className="error-text">Este campo es requerido</span>
@@ -57,7 +61,7 @@ function Register() {
             label="Contraseña"
             type="password"
             placeholder="Contraseña"
-            {...register("password", { required: true })}
+            {...register("contrasena", { required: true })}
           />
           {errors.password && (
             <span className="error-text">Este campo es requerido</span>
@@ -79,10 +83,7 @@ function Register() {
         <div>
           <p className="register-text">
             ¿Ya tienes cuenta?{" "}
-            <Link
-              className="text-[#56b280] hover:text-[#128546]"
-              to={"/login"}
-            >
+            <Link className="text-[#56b280] hover:text-[#128546]" to={"/login"}>
               Inicia sesión
             </Link>
           </p>

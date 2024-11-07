@@ -17,7 +17,10 @@ const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState(null);
   const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
   useEffect(() => {
+    console.log("paso");
+    console.log(Cookies.get());
     if (Cookies.get("token")) {
+      console.log("paso");
       axios
         .get(baseURL, {
           withCredentials: true,
