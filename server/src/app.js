@@ -14,11 +14,12 @@ app.use(cookieParser());
 //Para ver errores en consola
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors(
-  {
-    origin:"http://localhost:5174",
-  }
-));
+app.use(
+  cors({
+    origin: ORIGIN,
+    credentials: true,
+  })
+);
 app.use("/api", productosRoutes);
 app.use("/api/auth", authRoutes);
 

@@ -62,7 +62,7 @@ const Login = () => {
             className="input-login"
             label="Password"
             type="password"
-            placeholder="Contraseña"
+            placeholder="contrasena"
             {...register("password", { required: true })}
           />
           {errors.password && (
