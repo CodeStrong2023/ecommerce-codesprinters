@@ -9,4 +9,14 @@ CREATE TABLE productos_arte (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     dimensiones VARCHAR(255),
     tipo_obra VARCHAR(50),
-    url_imagen VARCHAR(255),)
+    url_imagen VARCHAR(255),
+);
+
+CREATE TABLE usuarios(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255)  UNIQUE NOT NULL,
+    contraseña VARCHAR(255) NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
