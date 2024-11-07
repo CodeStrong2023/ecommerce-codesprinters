@@ -28,7 +28,7 @@ function Register() {
     <div className="login-container">
       <Card>
         {errorsAuth && (
-          <div className="login-title">
+          <div className="error-message">
             {errorsAuth.map((error, index) => (
               <p key={index}>{error}</p>
             ))}

@@ -1,60 +1,56 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
+import { getProductos } from "../../utils/api";
 
 const ProductsPage = () => {
-  // Estados de los filtros
   const [search, setSearch] = useState("");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [order, setOrder] = useState("asc");
-  const [category, setCategory] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 4000]); // Rango de precio ajustado
-  const [size, setSize] = useState(""); // Tamaño de la obra
+  const [tipoObra, setTipoObra] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 40000]);
+  const [dimensiones, setDimensiones] = useState("");
+  const [products, setProducts] = useState([]);
 
-  const products = [
-    {
-      id: 8,
-      name: "Cuadro surrealista",
-      descripcion: "Cuadro surrealista inspirado en sueños.",
-      autor: "Artista 8",
-      precio: 2500.0,
-      size: "110x90 cm",
-      category: "cuadro",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-    {
-      id: 9,
-      name: "Escultura en madera",
-      descripcion: "Escultura tallada en madera natural.",
-      autor: "Artista 9",
-      precio: 3500.0,
-      size: "75x40x35 cm",
-      category: "escultura",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-    {
-      id: 10,
-      name: "Pintura floral",
-      descripcion: "Cuadro de flores al óleo.",
-      autor: "Artista 10",
-      precio: 1300.0,
-      size: "100x50 cm",
-      category: "cuadro",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getProductos();
+      const formattedProducts = response.map((product) => ({
+        ...product,
+        precio: parseFloat(product.precio),
+      }));
+      setProducts(formattedProducts);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
 
   // Función para filtrar y ordenar productos
-  const filteredProducts = [...products]
+  const filteredProducts = products
     .filter(
       (product) =>
-        product.name.toLowerCase().includes(search.toLowerCase()) &&
-        (category ? product.category === category : true) &&
-        product.precio >= priceRange[0] &&
-        product.precio <= priceRange[1] &&
-        (size ? product.size === size : true)
+        // Filtro por búsqueda en nombre y descripción
+        product.nombre.toLowerCase().includes(search.toLowerCase()) ||
+        product.descripcion.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((product) =>
+      // Filtro por tipo de obra (categoría)
+      tipoObra ? product.tipo_obra === tipoObra : true
+    )
+    .filter(
+      (product) =>
+        // Filtro por rango de precio
+        product.precio >= priceRange[0] && product.precio <= priceRange[1]
+    )
+    .filter((product) =>
+      // Filtro por dimensiones
+      dimensiones ? product.dimensiones === dimensiones : true
     )
     .sort((a, b) =>
+      // Ordenar por precio
       order === "asc" ? a.precio - b.precio : b.precio - a.precio
     );
 
@@ -82,26 +78,26 @@ const ProductsPage = () => {
               type="text"
               id="search"
               className="filter-input"
-              placeholder="Buscar por nombre"
+              placeholder="Buscar por nombre o descripción"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
 
-          {/* Filtro de categoría */}
+          {/* Filtro de tipo de obra */}
           <div className="filter-section">
-            <label htmlFor="category" className="filter-label">
-              Categoría de Arte
+            <label htmlFor="tipoObra" className="filter-label">
+              Tipo de Obra
             </label>
             <select
-              id="category"
+              id="tipoObra"
               className="filter-select"
-              onChange={(e) => setCategory(e.target.value)}
-              value={category}
+              onChange={(e) => setTipoObra(e.target.value)}
+              value={tipoObra}
             >
               <option value="">Todas</option>
-              <option value="cuadro">Cuadro</option>
-              <option value="escultura">Escultura</option>
+              <option value="Cuadro">Cuadro</option>
+              <option value="Escultura">Escultura</option>
             </select>
           </div>
 
@@ -115,8 +111,8 @@ const ProductsPage = () => {
               id="priceRange"
               className="filter-range"
               min="0"
-              max="4000"
-              step="100"
+              max="40000"
+              step="500"
               value={priceRange[1]}
               onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
             />
@@ -125,19 +121,19 @@ const ProductsPage = () => {
             </span>
           </div>
 
-          {/* Filtro de tamaño */}
+          {/* Filtro de dimensiones */}
           <div className="filter-section">
-            <label htmlFor="size" className="filter-label">
-              Tamaño
+            <label htmlFor="dimensiones" className="filter-label">
+              Dimensiones
             </label>
             <select
-              id="size"
+              id="dimensiones"
               className="filter-select"
-              onChange={(e) => setSize(e.target.value)}
-              value={size}
+              onChange={(e) => setDimensiones(e.target.value)}
+              value={dimensiones}
             >
-              <option value="">Todos</option>
-              <option value="110x90 cm">110x90 cm</option>
+              <option value="">Todas</option>
+              <option value="120*60">120x60 cm</option>
               <option value="75x40x35 cm">75x40x35 cm</option>
               <option value="100x50 cm">100x50 cm</option>
             </select>
@@ -152,6 +148,7 @@ const ProductsPage = () => {
               id="sortPrice"
               className="filter-select"
               onChange={(e) => setOrder(e.target.value)}
+              value={order}
             >
               <option value="asc">Menor a Mayor</option>
               <option value="desc">Mayor a Menor</option>
@@ -170,10 +167,10 @@ const ProductsPage = () => {
             <div key={product.id} className="product-card">
               <img
                 src={product.url_imagen}
-                alt={product.name}
+                alt={product.nombre}
                 className="product-image"
               />
-              <h3 className="product-name">{product.name}</h3>
+              <h3 className="product-name">{product.nombre}</h3>
               <p className="product-price">$ {product.precio.toFixed(2)}</p>
               <a href={`/product/${product.id}`} className="button">
                 Ver Producto
