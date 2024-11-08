@@ -143,4 +143,15 @@
       font-weight: bold;
     }
   }
+   
+  .description-textarea {
+    width: 80%; /* Mantener el ancho consistente con otros campos */
+    height: 100px; /* Aumentar la altura para mayor visibilidad */
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical; /* Permitir que el usuario ajuste la altura */
+    font-size: 1em; /* Asegurar consistencia de tamaño de fuente */
+  }
   
