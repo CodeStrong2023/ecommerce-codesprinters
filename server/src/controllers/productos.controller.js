@@ -9,7 +9,7 @@ export const listarProducto = async (req, res) => {
   if (resultado.rowCount === 0) {
     return res.status(404).json({ message: "El Producto no existe" });
   }
-  return res.json(resultado);
+  return res.json(resultado.rows[0]);
 };
 // LISTAR TODOS LOS PRODUCTOS
 export const listarProductos = async (req, res) => {
