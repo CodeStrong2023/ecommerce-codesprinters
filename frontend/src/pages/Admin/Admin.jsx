@@ -55,7 +55,7 @@ function Apps() {
 
   return (
     <div className="container">
-      <div className="add-product-form">
+      <div className="add-product-form appear-slide-up">
         <h2>AÑADIR UNA NUEVA OBRA</h2>
         <form onSubmit={addProduct}>
           <input
@@ -82,19 +82,18 @@ function Apps() {
             onChange={handleInputChange}
             required
           />
-    <textarea
-  name="description"
-  placeholder="Descripción de la obra"
-  value={newProduct.description}
-  onChange={handleInputChange}
-  className="description-textarea"
-  required
-></textarea>
-
+          <textarea
+            name="description"
+            placeholder="Descripción de la obra"
+            value={newProduct.description}
+            onChange={handleInputChange}
+            className="description-textarea"
+            required
+          ></textarea>
           <input
             type="text"
             name="dimensions"
-            placeholder="Dimensiones (e.g., 50x70 cm)"
+            placeholder="Dimensiones (ej., 50x70 cm)"
             value={newProduct.dimensions}
             onChange={handleInputChange}
             required
@@ -102,7 +101,7 @@ function Apps() {
           <input
             type="text"
             name="type"
-            placeholder="Tipo de obra (e.g., Pintura, Escultura)"
+            placeholder="Tipo de obra (ej., Pintura, Escultura)"
             value={newProduct.type}
             onChange={handleInputChange}
             required
@@ -125,7 +124,7 @@ function Apps() {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}>
+            <tr key={product.id} className="appear-fade-in">
               <td><img src={product.imageUrl} alt={product.name} /></td>
               <td>{product.name}</td>
               <td>${product.price}/-</td>
@@ -133,7 +132,7 @@ function Apps() {
               <td>{product.dimensions}</td>
               <td>{product.type}</td>
               <td>
-                <button onClick={() => editProduct(product.id)}>Editar</button>
+                <button onClick={() => editProduct(product.id)}>Editar/</button>
                 <button onClick={() => deleteProduct(product.id)}>Eliminar</button>
               </td>
             </tr>
