@@ -8,10 +8,13 @@ import {
 } from "./config.js";
 export const pool = new pg.Pool({
   port: PG_PORT,
-  hots: PG_HOST,
+  host: PG_HOST,
   user: PG_USER,
   password: PG_PASSWORD,
   database: PG_DATABASE,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 pool.on("Connectado al servidor", () => {
   console.log("Conectado a la base de datos");
