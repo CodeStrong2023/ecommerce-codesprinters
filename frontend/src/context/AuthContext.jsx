@@ -4,6 +4,7 @@ import { createContext, useState, useContext } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import api from "../utils/api";
 const AuthContext = createContext();
 const useAuth = () => {
   const context = useContext(AuthContext);
@@ -15,11 +16,11 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState(null);
-  const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
   useEffect(() => {
     if (Cookies.get("token")) {
-      axios
-        .get(baseURL, {
+      console.log("paso");
+      api
+        .get("/auth/perfil", {
           withCredentials: true,
         })
         .then((response) => {
