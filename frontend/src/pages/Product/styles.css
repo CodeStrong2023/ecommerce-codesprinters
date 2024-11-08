@@ -1,11 +1,3 @@
-/* styles.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-}
-
 .product-container {
   max-width: 1200px;
   min-height: 80vh;
@@ -16,7 +8,13 @@ body {
   align-items: center;
   flex: 1;
 }
-
+.product-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-weight: bold;
+}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -25,6 +23,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 h1 {
   margin-bottom: 50px;
+  margin-top: 70px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 h3 {
@@ -129,50 +130,65 @@ h3 {
   background-color: #219150;
 }
 
-.footer {
-  background-color: #333;
-  color: #fff;
-  padding: 40px 20px;
+/* Estilos para los íconos de éxito y error */
+.modal-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.modal-icon.success {
+  color: #27ae60; /* Color verde para el tick */
+}
+
+.modal-icon.error {
+  color: #e74c3c; /* Color rojo para la X */
+}
+
+.tick {
+  font-size: 50px;
+  color: #27ae60; /* Color verde para el tick */
+}
+
+.error {
+  font-size: 50px;
+  color: #e74c3c; /* Color rojo para la X */
+}
+
+/* El resto de los estilos existentes */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  margin-top: 40px;
+  z-index: 1000;
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.footer-nav {
-  margin-right: 10%;
-  border-top: solid 1px #27ae60;
-  display: flex;
-  gap: 40px;
+.modal-btn {
+  background-color: #27ae60cc;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px;
 }
 
-.footer-nav div {
-  margin: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-nav a {
-  color: #b3b3b3;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.footer-nav a:hover {
-  color: #27ae60;
-}
-
-.footer-titles {
-  color: #27ae60;
+.modal-btn:hover {
+  background-color: #27ae60;
 }
 
 @media (max-width: 768px) {
@@ -194,16 +210,5 @@ h3 {
   .quantity-cart {
     flex-direction: column;
     align-items: center;
-  }
-
-  .footer {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
   }
 }

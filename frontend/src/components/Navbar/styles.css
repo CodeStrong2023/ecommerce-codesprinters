@@ -6,6 +6,12 @@
   background-color: #fff;
   color: #000;
   height: 80px;
+  position: fixed; /* Fija la navbar en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%; /* Hace que la navbar ocupe todo el ancho */
+  z-index: 1000; /* Asegura que la navbar esté encima de otros elementos */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra para destacar la navbar */
 }
 .navbar-logo {
   font-size: 1.5rem;
@@ -39,6 +45,81 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.usuario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  gap: 8px;
+  height: 31px;
+  width: 150px;
+  border: none;
+  background: #27ae60cc;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  color: #fff;
+}
+
+.usuario .span {
+  border-radius: 20%;
+  background-color: #128546;
+  padding: 5px;
+  position: absolute;
+  left: 0;
+}
+
+.usuario:hover {
+  background: #128546;
+}
+
+.usuario:hover .svg-icon {
+  animation: slope 0.8s linear infinite;
+}
+
+@keyframes slope {
+  0% {
+  }
+
+  50% {
+    transform: rotate(15deg);
+  }
+
+  100% {
+  }
+}
+
+/* From Uiverse.io by vinodjangid07 */ 
+.cart {
+  width: 50px;
+  height: 30px;
+  background-image: linear-gradient( #3bd37dcc, #28ae60cc);
+  border: none;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 2px 3px 0px #ddd;
+}
+
+.cartIcon {
+  width: 18px;
+  height: fit-content;
+}
+
+.cartIcon path {
+  fill: rgb(255, 255, 255);
+}
+
+.cart:hover {
+  background-color: #128546;
+}
+
 
 @media (max-width: 768px) {
   .navbar-hrefs {

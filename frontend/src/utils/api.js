@@ -5,6 +5,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 const handleRequestError = (error) => {
@@ -12,7 +13,26 @@ const handleRequestError = (error) => {
   throw error;
 };
 //TODAS LAS LLAMADAS A LA API VAN ACA
-
+//AUTH
+//register
+export const registerUser = async (data) => {
+  try {
+    const response = await api.post("/auth/registrarse", data);
+    return response.data;
+  } catch (error) {
+    handleRequestError(error);
+  }
+};
+//SignOut
+export const signout = async () => {
+  const res = await api.post("/auth/salir");
+  return res.data;
+};
+//Login
+export const login = async (data) => {
+  const res = await api.post("/auth/ingresar", data);
+  return res.data;
+};
 // Todos los productos
 export const getProductos = async () => {
   try {
@@ -66,3 +86,5 @@ export const deleteProducto = async (id) => {
     handleRequestError(error);
   }
 };
+
+export default api;

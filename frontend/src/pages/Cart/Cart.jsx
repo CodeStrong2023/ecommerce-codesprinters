@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./styles.css";
-
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import api from "../../utils/api";
 const initialProductsCart = [
   {
     id: 8,
@@ -35,6 +36,33 @@ const initialProductsCart = [
 ];
 
 const Cart = () => {
+  const [preferenceId, setPreferenceId] = useState(null);
+
+  initMercadoPago("TEST-b6db68ff-91bc-4ca5-8a68-0a8689f01f81");
+  const initialization = {
+    preferenceId: preferenceId,
+  };
+
+  const customization = {
+    texts: {
+      valueProp: "smart_option",
+    },
+  };
+
+  const onSubmit = async (formData) => {
+    // callback llamado al hacer clic en Wallet Brick
+    // esto es posible porque Brick es un botón
+  };
+
+  const onError = async (error) => {
+    // callback llamado para todos los casos de error de Brick
+    console.log(error);
+  };
+
+  const onReady = async () => {
+    // Callback llamado cuando Brick esté listo.
+    // Aquí puedes ocultar loadings en tu sitio, por ejemplo.
+  };
   // Estado para manejar los productos en el carrito
   const [productsCart, setProductsCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || initialProductsCart
@@ -52,7 +80,11 @@ const Cart = () => {
   const subtotal = productsCart
     .reduce((acc, product) => acc + product.precio, 0)
     .toFixed(2);
-
+  const handleGetPreference = async () => {
+    const response = await api.post("/create_preference", { price: subtotal });
+    console.log(response);
+    setPreferenceId(response.data.id);
+  };
   return (
     <div className="cart-container">
       <div className="cart-header">
@@ -109,9 +141,20 @@ const Cart = () => {
         <button
           className="checkout-button"
           disabled={productsCart.length === 0}
+          onClick={handleGetPreference}
         >
           Comprar
         </button>
+        <div id="wallet_container"></div>
+        {preferenceId && (
+          <Wallet
+            initialization={initialization}
+            customization={customization}
+            onSubmit={onSubmit}
+            onReady={onReady}
+            onError={onError}
+          />
+        )}
       </div>
     </div>
   );

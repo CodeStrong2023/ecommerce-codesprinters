@@ -20,3 +20,6 @@ CREATE TABLE usuarios(
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE usuarios
+RENAME COLUMN "password" TO contrasena;

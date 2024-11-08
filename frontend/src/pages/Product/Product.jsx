@@ -1,73 +1,127 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-// ProductPage.js
 import "./styles.css";
-import React, { useState } from "react";
-import { addToCart } from "../../utils/cart";
-const product = {
-  id: 1,
-  nombre: "Pintura abstracta 1",
-  descripcion: "Obra de arte abstracta en colores vibrantes.",
-  autor: "Artista 1",
-  precio: 1500.0,
-  created_at: "2024-01-01T10:00:00Z",
-  updated_at: "2024-01-01T10:00:00Z",
-  dimensiones: "100x100 cm",
-  tipo_obra: "cuadro",
-  url_imagen: "https://via.placeholder.com/150",
-};
-const ProductPage = () => {
-  const [quantity, setQuantity] = useState(1);
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { addToCart } from "../../utils/cart"; // Importamos solo addToCart
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+const ProductPage = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("success"); // Estado para determinar el ícono en el modal
+
+  const products = [
+    {
+      id: 8,
+      nombre: "Cuadro surrealista",
+      descripcion: "Cuadro surrealista inspirado en sueños.",
+      autor: "Artista 8",
+      precio: 2500.0,
+      dimensiones: "110x90 cm",
+      tipo_obra: "cuadro",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+    {
+      id: 9,
+      nombre: "Escultura en madera",
+      descripcion: "Escultura tallada en madera natural.",
+      autor: "Artista 9",
+      precio: 3500.0,
+      dimensiones: "75x40x35 cm",
+      tipo_obra: "escultura",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+    {
+      id: 10,
+      nombre: "Pintura floral",
+      descripcion: "Cuadro de flores al óleo.",
+      autor: "Artista 10",
+      precio: 1300.0,
+      dimensiones: "100x50 cm",
+      tipo_obra: "cuadro",
+      url_imagen: "https://via.placeholder.com/150",
+    },
+  ];
+
+  useEffect(() => {
+    const foundProduct = products.find((p) => p.id === parseInt(id));
+    if (foundProduct) {
+      setProduct(foundProduct);
+    }
+  }, [id]);
+
+  // Función para verificar si el producto ya está en el carrito
+  const isProductInCart = (product) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    return cart.some((item) => item.id === product.id); // Verifica si el id del producto existe en el carrito
+  };
+
+  const handleCart = () => {
+    if (product) {
+      if (isProductInCart(product)) {
+        setModalMessage("El producto ya está en el carrito.");
+        setModalStatus("error"); // Mostrar la X roja si ya está en el carrito
+      } else {
+        addToCart(product);
+        setModalMessage("Producto agregado al carrito con éxito.");
+        setModalStatus("success"); // Mostrar el tick verde si se agrega con éxito
+      }
+      setIsModalVisible(true); // Mostrar el modal
     }
   };
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const closeModal = () => {
+    setIsModalVisible(false); // Ocultar el modal
   };
-  const handleCart = () => {
-    addToCart(product);
-  };
+
+  if (!product) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="product-container">
-      <header>
+      <div className="product-title">
         <h1>Página de Producto</h1>
-      </header>
+      </div>
 
       <div className="product">
-        <img src={"/img/descarga.jpeg"} alt="Producto" />
+        <img src={product.url_imagen} alt={product.nombre} />
         <div className="product-details">
           <h1 className="nombre">{product.nombre}</h1>
           <h3>Descripción</h3>
           <p className="description">{product.descripcion}</p>
-          <div className="price">$ {product.precio} </div>
-          <div className="quantity-cart">
-            <div className="quantity">
-              <label htmlFor="quantity">Cantidad</label>
-              <div className="quantity-controls">
-                <button className="quantity-btn" onClick={decreaseQuantity}>
-                  -
-                </button>
-                <input
-                  type="number"
-                  id="quantity"
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                />
-                <button className="quantity-btn" onClick={increaseQuantity}>
-                  +
-                </button>
-              </div>
+          <p className="author">Artista: {product.autor}</p>
+          <p className="dimensions">Dimensiones: {product.dimensiones}</p>
+          <div className="price">$ {product.precio.toFixed(2)}</div>
+          <button onClick={handleCart} className="add-to-cart">
+            + Añadir al carrito
+          </button>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalVisible && (
+        <div className="modal">
+          <div className="modal-content">
+            {/* Icono en el modal */}
+            <div className={`modal-icon ${modalStatus}`}>
+              {modalStatus === "success" ? (
+                <span className="tick">✔</span> // Tick verde
+              ) : (
+                <span className="error">✖</span> // X roja
+              )}
             </div>
-            <button onClick={handleCart} className="add-to-cart">
-              + Añadir al carrito
+            <p>{modalMessage}</p>
+            <button className="modal-btn" onClick={closeModal}>
+              Cerrar
             </button>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
+
 export default ProductPage;

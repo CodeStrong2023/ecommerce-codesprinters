@@ -4,11 +4,10 @@ import { createAccessToken } from "../libs/jwt.js";
 
 // FUNCION REGISTRARSE
 export const registrarse = async (req, res, next) => {
-  const { nombre, email, contraseña } = req.body;
+  const { nombre, email, contrasena } = req.body;
 
   try {
     const hashedcontrasena = await bcrypt.hash(contrasena, 10);
-    console.log(hashedcontrasena);
 
     const result = await pool.query(
       "INSERT INTO usuarios (nombre, email, contrasena) VALUES ($1, $2, $3) RETURNING *",
@@ -20,21 +19,24 @@ export const registrarse = async (req, res, next) => {
 
     //codigo de generacion de cookie
     res.cookie("token", token, {
-      httpOnly: true,
+      //httpOnly: true, //SOLO ACTIVARLO EN PRODUCCION
+      secure: true,
       sameSite: "none",
       maxAge: 60 * 60 * 24 * 1000,
     });
-    return res.json({ token: token });
+    return res.json(result.rows[0]);
   } catch (error) {
     if (error.code === "23505") {
       return res.status(400).json({ message: "EL CORREO YA ESTA REGISTRADO" });
     }
-    return res.status(500).json({ message: "Error interno del servidor" });
+    return res
+      .status(500)
+      .json({ message: "Error interno del servidor", error: error });
   }
 };
 // FUNCION INGRESAR
 export const ingresar = async (req, res) => {
-  const { email, contraseña } = req.body;
+  const { email, contrasena } = req.body;
 
   try {
     // Verificar si el usuario existe
@@ -46,19 +48,19 @@ export const ingresar = async (req, res) => {
     }
 
     // Validar la contraseña
-    const validContraseña = await bcrypt.compare(
-      contraseña,
-      result.rows[0].contraseña
+    const validContrasena = await bcrypt.compare(
+      contrasena,
+      result.rows[0].contrasena
     );
-    if (!validContraseña) {
+    if (!validContrasena) {
       return res.status(400).json({ message: "La contraseña es incorrecta" });
     }
 
     // Generar token
     const token = await createAccessToken({ id: result.rows[0].id });
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
+      //httpOnly: true,
+      secure: true,
       sameSite: "none",
       maxAge: 60 * 60 * 24 * 1000, // 1 día
     });
