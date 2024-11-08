@@ -93,7 +93,7 @@ function Apps() {
           <input
             type="text"
             name="dimensions"
-            placeholder="Dimensiones (ej., 50x70 cm)"
+            placeholder="Dimensiones (e.g., 50x70 cm)"
             value={newProduct.dimensions}
             onChange={handleInputChange}
             required
@@ -101,7 +101,7 @@ function Apps() {
           <input
             type="text"
             name="type"
-            placeholder="Tipo de obra (ej., Pintura, Escultura)"
+            placeholder="Tipo de obra (e.g., Pintura, Escultura)"
             value={newProduct.type}
             onChange={handleInputChange}
             required
