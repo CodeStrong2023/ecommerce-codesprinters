@@ -2,38 +2,6 @@ import { useState, useEffect } from "react";
 import "./styles.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import api from "../../utils/api";
-const initialProductsCart = [
-  {
-    id: 8,
-    nombre: "Cuadro surrealista",
-    descripcion: "Cuadro surrealista inspirado en sueños.",
-    autor: "Artista 8",
-    precio: 2500.0,
-    dimensiones: "110x90 cm",
-    tipo_obra: "cuadro",
-    url_imagen: "https://via.placeholder.com/150",
-  },
-  {
-    id: 9,
-    nombre: "Escultura en madera",
-    descripcion: "Escultura tallada en madera natural.",
-    autor: "Artista 9",
-    precio: 3500.0,
-    dimensiones: "75x40x35 cm",
-    tipo_obra: "escultura",
-    url_imagen: "https://via.placeholder.com/150",
-  },
-  {
-    id: 10,
-    nombre: "Pintura floral",
-    descripcion: "Cuadro de flores al óleo.",
-    autor: "Artista 10",
-    precio: 1300.0,
-    dimensiones: "100x50 cm",
-    tipo_obra: "cuadro",
-    url_imagen: "https://via.placeholder.com/150",
-  },
-];
 
 const Cart = () => {
   const [preferenceId, setPreferenceId] = useState(null);
@@ -65,7 +33,7 @@ const Cart = () => {
   };
   // Estado para manejar los productos en el carrito
   const [productsCart, setProductsCart] = useState(
-    JSON.parse(localStorage.getItem("cart")) || initialProductsCart
+    JSON.parse(localStorage.getItem("cart") || "[]")
   );
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(productsCart));
@@ -78,7 +46,7 @@ const Cart = () => {
 
   // Calcular el subtotal sumando los precios de cada producto
   const subtotal = productsCart
-    .reduce((acc, product) => acc + product.precio, 0)
+    .reduce((acc, product) => acc + Number(product.precio), 0)
     .toFixed(2);
   const handleGetPreference = async () => {
     const response = await api.post("/create_preference", { price: subtotal });
@@ -120,10 +88,10 @@ const Cart = () => {
               </div>
             </div>
             <div className="price-cell" data-label="Precio">
-              ${product.precio.toFixed(2)}
+              ${Number(product.precio).toFixed(2)}
             </div>
             <div className="total-cell" data-label="Total">
-              ${product.precio.toFixed(2)}
+              ${Number(product.precio).toFixed(2)}
             </div>
           </div>
         ))

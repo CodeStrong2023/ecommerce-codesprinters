@@ -48,7 +48,7 @@ const Login = () => {
         <h3 className="login-title">Iniciar Sesión</h3>
         <form onSubmit={onSubmit} className="space-y-4 w-[30vw]">
           <Input
-            className="input-email"
+            className="input-login"
             label="Email"
             type="email"
             placeholder="Email"

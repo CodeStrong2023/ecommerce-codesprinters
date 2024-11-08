@@ -3,59 +3,42 @@
 import "./styles.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { addToCart } from "../../utils/cart"; // Importamos solo addToCart
+import { addToCart } from "../../utils/cart";
+import { getProducto } from "../../utils/api"; // Importamos getProducto
 
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [modalMessage, setModalMessage] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalStatus, setModalStatus] = useState("success"); // Estado para determinar el ícono en el modal
-
-  const products = [
-    {
-      id: 8,
-      nombre: "Cuadro surrealista",
-      descripcion: "Cuadro surrealista inspirado en sueños.",
-      autor: "Artista 8",
-      precio: 2500.0,
-      dimensiones: "110x90 cm",
-      tipo_obra: "cuadro",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-    {
-      id: 9,
-      nombre: "Escultura en madera",
-      descripcion: "Escultura tallada en madera natural.",
-      autor: "Artista 9",
-      precio: 3500.0,
-      dimensiones: "75x40x35 cm",
-      tipo_obra: "escultura",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-    {
-      id: 10,
-      nombre: "Pintura floral",
-      descripcion: "Cuadro de flores al óleo.",
-      autor: "Artista 10",
-      precio: 1300.0,
-      dimensiones: "100x50 cm",
-      tipo_obra: "cuadro",
-      url_imagen: "https://via.placeholder.com/150",
-    },
-  ];
+  const [modalStatus, setModalStatus] = useState("success");
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [error, setError] = useState(null); // Estado de error
 
   useEffect(() => {
-    const foundProduct = products.find((p) => p.id === parseInt(id));
-    if (foundProduct) {
-      setProduct(foundProduct);
-    }
+    const fetchProduct = async () => {
+      try {
+        const fetchedProduct = await getProducto(id);
+        console.log(fetchedProduct);
+        if (fetchedProduct) {
+          setProduct(fetchedProduct);
+        } else {
+          setError("Producto no encontrado.");
+        }
+      } catch (error) {
+        setError("Error al cargar el producto.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   // Función para verificar si el producto ya está en el carrito
   const isProductInCart = (product) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    return cart.some((item) => item.id === product.id); // Verifica si el id del producto existe en el carrito
+    return cart.some((item) => item.id === product.id);
   };
 
   const handleCart = () => {
@@ -76,14 +59,22 @@ const ProductPage = () => {
     setIsModalVisible(false); // Ocultar el modal
   };
 
-  if (!product) {
+  if (loading) {
     return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!product) {
+    return <div>No se encontró el producto.</div>;
   }
 
   return (
     <div className="product-container">
       <div className="product-title">
-        <h1>Página de Producto</h1>
+        <h1>{product.nombre}</h1>
       </div>
 
       <div className="product">
@@ -92,9 +83,9 @@ const ProductPage = () => {
           <h1 className="nombre">{product.nombre}</h1>
           <h3>Descripción</h3>
           <p className="description">{product.descripcion}</p>
-          <p className="author">Artista: {product.autor}</p>
+          {product.autor && <p className="author">Artista: {product.autor}</p>}
           <p className="dimensions">Dimensiones: {product.dimensiones}</p>
-          <div className="price">$ {product.precio.toFixed(2)}</div>
+          <div className="price">$ {parseFloat(product.precio).toFixed(2)}</div>
           <button onClick={handleCart} className="add-to-cart">
             + Añadir al carrito
           </button>
