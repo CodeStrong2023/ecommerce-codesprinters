@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Apps from "./pages/Admin/Admin";
 import ProductPage from "./pages/Product/Product";
-import ProductsPage from "./pages/products/products";
+import ProductsPage from "./pages/Products/products";
 import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
