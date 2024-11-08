@@ -5,13 +5,11 @@ import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import Apps from "./pages/Admin/Admin";
 import ProductPage from "./pages/Product/Product";
-import ProductsPage from "./pages/Products/products";
+import ProductsPage from "./pages/products/products";
 import Cart from "./pages/Cart/Cart";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
-import Register from  "./pages/Register/Register";
-import NotFound from "./pages/NotFound/NotFound";
-
+import Register from "./pages/Register/Register";
 import "./App.css";
 function App() {
   return (
@@ -20,15 +18,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Apps />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/products/:category?" element={<ProductsPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/denied" element={<PaymentError />} />
-        <Route path="*" element={<NotFound/>} />
+        <Route path="/success" element={<Confirmation />} />
+        <Route path="/faliure" element={<PaymentError />} />
       </Routes>
+      {/*  */}
       <Footer />
     </>
   );
