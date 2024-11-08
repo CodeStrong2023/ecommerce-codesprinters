@@ -18,6 +18,7 @@ const Login = () => {
   const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
   const onSubmit = handleSubmit(async (data) => {
     console.log("paso");
+    console.log(data);
     /*  try {
       const response = await axios.post(baseURL, data, {
         withCredentials: true,
@@ -61,7 +62,7 @@ const Login = () => {
             className="input-login"
             label="Password"
             type="password"
-            placeholder="Contraseña"
+            placeholder="contrasena"
             {...register("password", { required: true })}
           />
           {errors.password && (

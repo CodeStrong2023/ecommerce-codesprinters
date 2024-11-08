@@ -54,7 +54,7 @@ const Cart = () => {
     .toFixed(2);
 
   return (
-    <div className="container">
+    <div className="cart-container">
       <div className="cart-header">
         <h1>CARRITO</h1>
         <a href="#" className="back-link">

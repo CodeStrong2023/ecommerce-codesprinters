@@ -35,17 +35,17 @@
 }
 .navbar-user {
   width: 3%;
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
 }
 
 @media (max-width: 768px) {
   .navbar-hrefs {
-    font-size: 12px;
-    width: 70%;
-    padding: 0;
-    justify-content: flex-start;
+    display: none;
+  }
+  .navbar-user {
+    display: flex;
   }
   .navbar-logo {
     font-size: 1rem;

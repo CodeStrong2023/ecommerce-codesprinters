@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// App.js
 import React, { useState } from 'react';
 import "./App.css"
 
@@ -11,7 +10,6 @@ function Apps() {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
-
   const addProduct = (e) => {
     e.preventDefault();
     const { name, price, imageUrl, description, dimensions, type } = newProduct;
@@ -24,7 +22,7 @@ function Apps() {
   };
 
   const editProduct = (id) => {
-    const updatedProducts = products.map(product => {
+    const updatedProducts = products.map((product) => {
       if (product.id === id) {
         const newName = prompt("Editar nombre del producto:", product.name);
         const newPrice = prompt("Editar precio del producto:", product.price);
@@ -49,12 +47,12 @@ function Apps() {
 
   const deleteProduct = (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-      setProducts(products.filter(product => product.id !== id));
+      setProducts(products.filter((product) => product.id !== id));
     }
   };
 
   return (
-    <div className="container">
+    <div className="admin-container">
       <div className="add-product-form appear-slide-up">
         <h2>AÑADIR UNA NUEVA OBRA</h2>
         <form onSubmit={addProduct}>
@@ -126,6 +124,7 @@ function Apps() {
           {products.map((product) => (
             <tr key={product.id} className="appear-fade-in">
               <td><img src={product.imageUrl} alt={product.name} /></td>
+
               <td>{product.name}</td>
               <td>${product.price}/-</td>
               <td>{product.description}</td>
