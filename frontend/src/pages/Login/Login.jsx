@@ -38,53 +38,54 @@ const Login = () => {
   });
   return (
     <div className="login-container">
-      <Card>
-        {JSON.stringify(errorsAuth) !== "null" && (
-          <div className="login-title">
-            {errorsAuth.map((error, index) => (
-              <p key={index}>{error}</p>
-            ))}
-          </div>
-        )}
-        <h3 className="login-title">Iniciar Sesión</h3>
-        <form onSubmit={onSubmit} className="space-y-4 w-[30vw]">
-          <Input
-            className="input-login"
-            label="Email"
-            type="email"
-            placeholder="Email"
-            {...register("email", { required: true })}
-          />
-          {errors.email && (
-            <span className="error-text">Este campo es requerido</span>
-          )}
-          <Input
-            className="input-login"
-            label="Password"
-            type="password"
-            placeholder="contrasena"
-            {...register("password", { required: true })}
-          />
-          {errors.password && (
-            <span className="error-text">Este campo es requerido</span>
-          )}
-          <div>
-            <Button className="button-login">Iniciar Sesión</Button>
-          </div>
-        </form>
-        <div>
-          <p className="register-text">
-            ¿No tienes cuenta?{" "}
-            <Link
-              className="text-[#56b280] hover:text-[#128546]"
-              to={"/register"}
-            >
-              Registrate
-            </Link>
-          </p>
-        </div>
-      </Card>
+  <Card className="card-transparent">
+    {JSON.stringify(errorsAuth) !== "null" && (
+      <div className="login-title">
+        {errorsAuth.map((error, index) => (
+          <p key={index}>{error}</p>
+        ))}
+      </div>
+    )}
+    <h3 className="login-title">Iniciar Sesión</h3>
+    <form onSubmit={onSubmit} className="space-y-4 w-[30vw]">
+      <Input
+        className="input-email"
+        label="Email"
+        type="email"
+        placeholder="Email"
+        {...register("email", { required: true })}
+      />
+      {errors.email && (
+        <span className="error-text">Este campo es obligatorio</span>
+      )}
+      <Input
+        className="input-login"
+        label="Contraseña"
+        type="password"
+        placeholder="Contraseña"
+        {...register("password", { required: true })}
+      />
+      {errors.password && (
+        <span className="error-text">Este campo es obligatorio</span>
+      )}
+      <div>
+        <Button className="button-login">Iniciar Sesión</Button>
+      </div>
+    </form>
+    <div>
+      <p className="register-text">
+        ¿No tienes cuenta?{" "}
+        <Link
+          className="text-[#56b280] hover:text-[#128546]"
+          to={"/register"}
+        >
+          Registrarse
+        </Link>
+      </p>
     </div>
+  </Card>
+</div>
+
   );
 };
 

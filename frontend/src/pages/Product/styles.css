@@ -25,6 +25,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 h1 {
   margin-bottom: 50px;
+  margin-top: 70px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 h3 {
