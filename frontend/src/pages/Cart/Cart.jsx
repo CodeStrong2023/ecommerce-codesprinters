@@ -38,7 +38,7 @@ const initialProductsCart = [
 const Cart = () => {
   const [preferenceId, setPreferenceId] = useState(null);
 
-  initMercadoPago("TEST-b6db68ff-91bc-4ca5-8a68-0a8689f01f81");
+  initMercadoPago("APP_USR-14a92e02-1b94-4bdb-bae0-64fbaf316a3c");
   const initialization = {
     preferenceId: preferenceId,
   };

@@ -12,7 +12,7 @@ const app = express();
 // Configuramos las credenciales de acceso para Mercado Pago
 const client = new MercadoPagoConfig({
   accessToken:
-    "TEST-1067239673011013-110810-ebb8c873980131107a49bc683577e4a2-303770033",
+    "APP_USR-4601492056605716-110813-f822f1bf501479056186a037b4d4396f-2083974841",
 });
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -42,6 +42,12 @@ app.post("/api/create_preference", async (req, res) => {
             unit_price: Number(req.body.price),
           },
         ],
+        back_urls: {
+          success: "http://localhost:5173/success/",
+          failure: "http://localhost:5173/failure/",
+          pending: "http://localhost:5173/pending/",
+        },
+        auto_return: "approved",
       },
     })
     .then((response) => {
