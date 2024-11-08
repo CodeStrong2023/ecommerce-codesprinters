@@ -5,53 +5,60 @@ import authRoutes from "./router/auth.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { ORIGIN } from "./config.js";
+import path from "path";
+import { MercadoPagoConfig, Preference } from "mercadopago";
 const app = express();
-const mercadopago = require('mercadopago');
 
-//Confiuguramos las credenciales de acceso
-mercadopago.configure({
-  acces_token: 'TU_ACCES_TOKEN',
+// Configuramos las credenciales de acceso para Mercado Pago
+const client = new MercadoPagoConfig({
+  accessToken:
+    "TEST-1067239673011013-110810-ebb8c873980131107a49bc683577e4a2-303770033",
 });
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
-app.use(express.static(path.join(__dirname, "../client")));
+app.use(
+  cors({
+    origin: ORIGIN,
+    credentials: true,
+  })
+);
+app.use(morgan("dev"));
+app.use(cookieParser());
 
-app.get("/", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "..", "client", "index.html"));
-});
+// Rutas
+app.use("/api", productosRoutes);
+app.use("/api/auth", authRoutes);
 
-app.post("/create_preference", (req, res) => {
-  const preference = {
-    items: [
-      {
-        title: "Compra E-commerce",
-        quantity: 1,
-        unit_price: parseFloat(req.body.price),
+// Rutas de Mercado Pago
+app.post("/api/create_preference", async (req, res) => {
+  const preference = new Preference(client);
+  preference
+    .create({
+      body: {
+        items: [
+          {
+            title: "Compra E-commerce",
+            quantity: 1,
+            unit_price: Number(req.body.price),
+          },
+        ],
       },
-    ],
-    back_urls: {
-      success: "http://localhost:5173/confirmation",
-      failure: "http://localhost:5173/denied",
-    },
-    auto_return: "approved",
-  };
-
-  mercadopago.preferences
-    .create(preference)
-    .then(function (response) {
+    })
+    .then((response) => {
+      console.log(response);
       res.json({
-        id: response.body.id
+        id: response.id,
       });
     })
-    .catch(function (error) {
-      console.log(error);
-      res.status(500).send("Error al crear la preferencia de pago");
+    .catch((error) => {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Error al crear la preferencia", error: error });
     });
 });
 
-app.get("/feedback", function (req, res) {
+app.get("/feedback", (req, res) => {
   res.json({
     Payment: req.query.payment_id,
     Status: req.query.status,
@@ -59,34 +66,16 @@ app.get("/feedback", function (req, res) {
   });
 });
 
-app.listen(5173, () => {
-  console.log("The server is now running on Port 5173");
-});
-
-//Middlewares
-app.use[morgan("dev")]; 
-// Para leer las Cookies 
-app.use(cookieParser());
-//Para ver errores en consola
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({
-    origin: ORIGIN,
-    credentials: true,
-  })
-);
-app.use("/api", productosRoutes);
-app.use("/api/auth", authRoutes);
-
+/* // Ruta principal
 app.get("/", (req, res) => {
-  res.json({ message: "Ecomerce CodeSprinters" });
-});
+  res.sendFile(path.resolve(__dirname, "..", "client", "index.html"));
+}); */
+
 app.get("/test", (req, res) => {
   throw new Error("This is a test error");
 });
 
-//manejando errores
+// Middleware de manejo de errores
 app.use((err, req, res, next) => {
   res.status(500).json({
     status: "error",

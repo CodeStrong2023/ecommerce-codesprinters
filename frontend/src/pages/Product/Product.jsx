@@ -55,7 +55,7 @@ const ProductPage = () => {
   // Función para verificar si el producto ya está en el carrito
   const isProductInCart = (product) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    return cart.some(item => item.id === product.id); // Verifica si el id del producto existe en el carrito
+    return cart.some((item) => item.id === product.id); // Verifica si el id del producto existe en el carrito
   };
 
   const handleCart = () => {
@@ -82,9 +82,9 @@ const ProductPage = () => {
 
   return (
     <div className="product-container">
-      <header>
+      <div className="product-title">
         <h1>Página de Producto</h1>
-      </header>
+      </div>
 
       <div className="product">
         <img src={product.url_imagen} alt={product.nombre} />
@@ -114,7 +114,9 @@ const ProductPage = () => {
               )}
             </div>
             <p>{modalMessage}</p>
-            <button className="modal-btn" onClick={closeModal}>Cerrar</button>
+            <button className="modal-btn" onClick={closeModal}>
+              Cerrar
+            </button>
           </div>
         </div>
       )}
