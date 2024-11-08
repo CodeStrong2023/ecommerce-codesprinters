@@ -12,9 +12,6 @@ export const pool = new pg.Pool({
   user: PG_USER,
   password: PG_PASSWORD,
   database: PG_DATABASE,
-  ssl: {
-    rejectUnauthorized: false,
-  },
 });
 pool.on("Connectado al servidor", () => {
   console.log("Conectado a la base de datos");

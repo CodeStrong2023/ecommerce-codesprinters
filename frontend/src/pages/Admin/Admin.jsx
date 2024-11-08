@@ -1,110 +1,178 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import "./App.css"
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import {
+  createProducto,
+  updateProducto,
+  deleteProducto,
+  getProductos,
+} from "../../utils/api";
 
 function Apps() {
+  const initialProductState = {
+    nombre: "",
+    precio: "",
+    url_imagen: "",
+    descripcion: "",
+    dimensiones: "",
+    tipo_obra: "",
+  };
+
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', imageUrl: '', description: '', dimensions: '', type: '' });
+  const [newProduct, setNewProduct] = useState(initialProductState);
+  const [editingProductId, setEditingProductId] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const products = await getProductos();
+        setProducts(products);
+      } catch (error) {
+        alert("Error al cargar los productos.");
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
-  const addProduct = (e) => {
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const { name, price, imageUrl, description, dimensions, type } = newProduct;
-    if (name && price && imageUrl && description && dimensions && type) {
-      setProducts([...products, { ...newProduct, id: Date.now() }]);
-      setNewProduct({ name: '', price: '', imageUrl: '', description: '', dimensions: '', type: '' });
+
+    const { nombre, precio, url_imagen, descripcion, dimensiones, tipo_obra } =
+      newProduct;
+
+    if (
+      nombre &&
+      precio &&
+      url_imagen &&
+      descripcion &&
+      dimensiones &&
+      tipo_obra
+    ) {
+      try {
+        if (editingProductId) {
+          // Actualizar producto existente
+          const updatedProduct = await updateProducto(
+            editingProductId,
+            newProduct
+          );
+          setProducts(
+            products.map((product) =>
+              product.id === editingProductId ? updatedProduct : product
+            )
+          );
+          setEditingProductId(null);
+          setNewProduct(initialProductState);
+          alert("Producto actualizado con éxito.");
+        } else {
+          // Crear nuevo producto
+          const createdProduct = await createProducto(newProduct);
+          setNewProduct(initialProductState);
+          alert("Producto creado con éxito.");
+        }
+      } catch (error) {
+        alert("Ocurrió un error al procesar la solicitud.");
+      }
     } else {
       alert("Por favor, completa todos los campos.");
     }
   };
 
-  const editProduct = (id) => {
-    const updatedProducts = products.map((product) => {
-      if (product.id === id) {
-        const newName = prompt("Editar nombre del producto:", product.name);
-        const newPrice = prompt("Editar precio del producto:", product.price);
-        const newDescription = prompt("Editar descripción del producto:", product.description);
-        const newDimensions = prompt("Editar dimensiones del producto:", product.dimensions);
-        const newType = prompt("Editar tipo de obra:", product.type);
-        const newImageUrl = prompt("Editar URL de la imagen:", product.imageUrl);
-        return {
-          ...product,
-          name: newName !== null ? newName : product.name,
-          price: newPrice !== null ? newPrice : product.price,
-          description: newDescription !== null ? newDescription : product.description,
-          dimensions: newDimensions !== null ? newDimensions : product.dimensions,
-          type: newType !== null ? newType : product.type,
-          imageUrl: newImageUrl !== null ? newImageUrl : product.imageUrl,
-        };
-      }
-      return product;
+  const editProduct = (product) => {
+    setEditingProductId(product.id);
+    setNewProduct({
+      nombre: product.nombre,
+      precio: product.precio,
+      url_imagen: product.url_imagen,
+      descripcion: product.descripcion,
+      dimensiones: product.dimensiones,
+      tipo_obra: product.tipo_obra,
     });
-    setProducts(updatedProducts);
   };
 
-  const deleteProduct = (id) => {
+  const cancelEdit = () => {
+    setEditingProductId(null);
+    setNewProduct(initialProductState);
+  };
+
+  const deleteProduct = async (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-      setProducts(products.filter((product) => product.id !== id));
+      try {
+        await deleteProducto(id);
+        setProducts(products.filter((product) => product.id !== id));
+        alert("Producto eliminado con éxito.");
+      } catch (error) {
+        alert("Ocurrió un error al eliminar el producto.");
+      }
     }
   };
 
   return (
     <div className="admin-container">
       <div className="add-product-form appear-slide-up">
-        <h2>AÑADIR UNA NUEVA OBRA</h2>
-        <form onSubmit={addProduct}>
+        <h2>{editingProductId ? "EDITAR OBRA" : "AÑADIR UNA NUEVA OBRA"}</h2>
+        <form onSubmit={handleFormSubmit}>
           <input
             type="text"
-            name="name"
+            name="nombre"
             placeholder="Nombre de la obra"
-            value={newProduct.name}
+            value={newProduct.nombre}
             onChange={handleInputChange}
             required
           />
           <input
             type="number"
-            name="price"
+            name="precio"
             placeholder="Precio de la obra"
-            value={newProduct.price}
+            value={newProduct.precio}
             onChange={handleInputChange}
             required
           />
           <input
             type="text"
-            name="imageUrl"
+            name="url_imagen"
             placeholder="URL de la imagen"
-            value={newProduct.imageUrl}
+            value={newProduct.url_imagen}
             onChange={handleInputChange}
             required
           />
           <textarea
-            name="description"
+            name="descripcion"
             placeholder="Descripción de la obra"
-            value={newProduct.description}
+            value={newProduct.descripcion}
             onChange={handleInputChange}
             className="description-textarea"
             required
           ></textarea>
           <input
             type="text"
-            name="dimensions"
+            name="dimensiones"
             placeholder="Dimensiones (e.g., 50x70 cm)"
-            value={newProduct.dimensions}
+            value={newProduct.dimensiones}
             onChange={handleInputChange}
             required
           />
           <input
             type="text"
-            name="type"
+            name="tipo_obra"
             placeholder="Tipo de obra (e.g., Pintura, Escultura)"
-            value={newProduct.type}
+            value={newProduct.tipo_obra}
             onChange={handleInputChange}
             required
           />
-          <button type="submit">Añadir Obra</button>
+          <button type="submit">
+            {editingProductId ? "Actualizar Obra" : "Añadir Obra"}
+          </button>
+          {editingProductId && (
+            <button type="button" onClick={cancelEdit}>
+              Cancelar
+            </button>
+          )}
         </form>
       </div>
 
@@ -123,16 +191,19 @@ function Apps() {
         <tbody>
           {products.map((product) => (
             <tr key={product.id} className="appear-fade-in">
-              <td><img src={product.imageUrl} alt={product.name} /></td>
-
-              <td>{product.name}</td>
-              <td>${product.price}/-</td>
-              <td>{product.description}</td>
-              <td>{product.dimensions}</td>
-              <td>{product.type}</td>
               <td>
-                <button onClick={() => editProduct(product.id)}>Editar/</button>
-                <button onClick={() => deleteProduct(product.id)}>Eliminar</button>
+                <img src={product.url_imagen} alt={product.nombre} />
+              </td>
+              <td>{product.nombre}</td>
+              <td>${product.precio}</td>
+              <td>{product.descripcion}</td>
+              <td>{product.dimensiones}</td>
+              <td>{product.tipo_obra}</td>
+              <td>
+                <button onClick={() => editProduct(product)}>Editar</button>
+                <button onClick={() => deleteProduct(product.id)}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
