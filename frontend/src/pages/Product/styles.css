@@ -178,6 +178,68 @@ h3 {
   color: #27ae60;
 }
 
+/* Estilos para los íconos de éxito y error */
+.modal-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.modal-icon.success {
+  color: #27ae60; /* Color verde para el tick */
+}
+
+.modal-icon.error {
+  color: #e74c3c; /* Color rojo para la X */
+}
+
+.tick {
+  font-size: 50px;
+  color: #27ae60; /* Color verde para el tick */
+}
+
+.error {
+  font-size: 50px;
+  color: #e74c3c; /* Color rojo para la X */
+}
+
+/* El resto de los estilos existentes */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-btn {
+  background-color: #27ae60cc;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px;
+}
+
+.modal-btn:hover {
+  background-color: #27ae60;
+}
+
+
 @media (max-width: 768px) {
   .product {
     flex-direction: column;
@@ -210,3 +272,5 @@ h3 {
     gap: 20px;
   }
 }
+
+

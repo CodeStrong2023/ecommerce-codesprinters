@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "serve": "serve dist -p $PORT"
+    "serve": "serve dist -p $PORT",
+    "start": "serve dist -p $PORT"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",

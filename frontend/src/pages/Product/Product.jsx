@@ -3,11 +3,14 @@
 import "./styles.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { addToCart } from "../../utils/cart";
+import { addToCart } from "../../utils/cart"; // Importamos solo addToCart
 
 const ProductPage = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("success"); // Estado para determinar el ícono en el modal
 
   const products = [
     {
@@ -43,16 +46,34 @@ const ProductPage = () => {
   ];
 
   useEffect(() => {
-    const foundProduct = products.find(p => p.id === parseInt(id));
+    const foundProduct = products.find((p) => p.id === parseInt(id));
     if (foundProduct) {
       setProduct(foundProduct);
     }
   }, [id]);
 
+  // Función para verificar si el producto ya está en el carrito
+  const isProductInCart = (product) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    return cart.some(item => item.id === product.id); // Verifica si el id del producto existe en el carrito
+  };
+
   const handleCart = () => {
     if (product) {
-      addToCart(product);
+      if (isProductInCart(product)) {
+        setModalMessage("El producto ya está en el carrito.");
+        setModalStatus("error"); // Mostrar la X roja si ya está en el carrito
+      } else {
+        addToCart(product);
+        setModalMessage("Producto agregado al carrito con éxito.");
+        setModalStatus("success"); // Mostrar el tick verde si se agrega con éxito
+      }
+      setIsModalVisible(true); // Mostrar el modal
     }
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false); // Ocultar el modal
   };
 
   if (!product) {
@@ -79,6 +100,24 @@ const ProductPage = () => {
           </button>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalVisible && (
+        <div className="modal">
+          <div className="modal-content">
+            {/* Icono en el modal */}
+            <div className={`modal-icon ${modalStatus}`}>
+              {modalStatus === "success" ? (
+                <span className="tick">✔</span> // Tick verde
+              ) : (
+                <span className="error">✖</span> // X roja
+              )}
+            </div>
+            <p>{modalMessage}</p>
+            <button className="modal-btn" onClick={closeModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
