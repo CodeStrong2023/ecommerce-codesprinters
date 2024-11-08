@@ -66,16 +66,11 @@ export const ingresar = async (req, res) => {
     });
 
     // Enviar respuesta
-    return res.status(200).json({
-      message: "Inicio de sesión exitoso",
-      usuario: {
-        nombre: result.rows[0].nombre,
-        email: result.rows[0].email,
-        token,
-      },
-    });
+    return res.status(200).json(result.rows[0]);
   } catch (error) {
-    return res.status(500).json({ message: "Error interno del servidor" });
+    return res
+      .status(500)
+      .json({ message: "Error interno del servidor", error: error });
   }
 };
 
@@ -88,9 +83,10 @@ export const salir = (req, res) => {
 // FUNCION PERFIL
 export const perfil = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM usuarios WHERE id = $1", [
-      req.usuarioId,
-    ]);
+    const result = await pool.query(
+      "SELECT id,nombre,email,gravatar FROM usuarios WHERE id = $1",
+      [req.usuarioId]
+    );
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Usuario no encontrado" });

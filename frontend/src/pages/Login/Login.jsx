@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Input, Button } from "../../components/ui";
 import { Card } from "antd";
 import api, { login } from "../../utils/api";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 import "./styles.css";
 const Login = () => {
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoadingContext);
   const { setUser, setErrorsAuth, errorsAuth } = useContext(AuthContext);
   const {
     register,
@@ -16,22 +18,21 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit(async (data) => {
-    console.log("paso");
-    console.log(data);
+    setLoading(true);
     try {
       const response = await login(data);
-      console.log(response);
-      /*   await setUser(response.data.user);
-      console.log(response.data);
+      setUser(response);
+
       setTimeout(() => {
-        navigate("/profile");
-      }, 1000); */
+        setLoading(false);
+        navigate("/");
+      }, 1000);
     } catch (error) {
+      setLoading(false);
       console.log(error);
       if (Array.isArray(error.response.data)) {
         setErrorsAuth(error.response.data);
       }
-      console.log(typeof error);
       setErrorsAuth([error.response.data.message]);
     }
   });
@@ -62,7 +63,7 @@ const Login = () => {
             label="Contraseña"
             type="password"
             placeholder="Contraseña"
-            {...register("password", { required: true })}
+            {...register("contrasena", { required: true })}
           />
           {errors.password && (
             <span className="error-text">Este campo es obligatorio</span>

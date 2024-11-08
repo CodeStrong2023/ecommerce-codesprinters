@@ -15,7 +15,7 @@ router.get("/productos", listarProductos);
 
 router.get("/producto/:id", listarProducto);
 
-router.post("/productos", crearProducto);
+router.post("/productos", isAuth, crearProducto);
 
 router.put("/productos/:id", isAuth, actualizarProducto);
 

@@ -53,7 +53,23 @@ header nav {
   margin-bottom: 60px; /* Espacio para el footer */
   text-align: center;
 }
-
+.btn-edit {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 /* Animations */
 @keyframes slideUp {
   0% {
