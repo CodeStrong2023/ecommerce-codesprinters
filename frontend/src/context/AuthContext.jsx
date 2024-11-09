@@ -17,21 +17,19 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState(null);
   useEffect(() => {
-    if (Cookies.get("token") !== undefined) {
-      api
-        .get("/auth/perfil", {
-          withCredentials: true,
-        })
-        .then((response) => {
-          setUser(response.data);
-          setIsAuth(true);
-        })
-        .catch((error) => {
-          setUser(null);
-          setIsAuth(false);
-          console.log(error);
-        });
-    }
+    api
+      .get("/auth/perfil", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setUser(response.data);
+        setIsAuth(true);
+      })
+      .catch((error) => {
+        setUser(null);
+        setIsAuth(false);
+        console.log(error);
+      });
   }, []);
   useEffect(() => {
     console.log(isAuth);
