@@ -7,7 +7,6 @@ import {
   deleteProducto,
   getProductos,
 } from "../../utils/api";
-import Cookies from "js-cookie";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,10 +38,8 @@ function Apps() {
     fetchProducts();
   }, []);
   useEffect(() => {
-    if (!isAuth) {
-      navigate("/");
-    }
-  }, []);
+    console.log(isAuth);
+  }, [isAuth]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
@@ -123,111 +120,117 @@ function Apps() {
 
   return (
     <div className="admin-container">
-      <div className="add-product-form appear-slide-up">
-        <h2>{editingProductId ? "EDITAR OBRA" : "AÑADIR UNA NUEVA OBRA"}</h2>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre de la obra"
-            value={newProduct.nombre}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            type="number"
-            name="precio"
-            placeholder="Precio de la obra"
-            value={newProduct.precio}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            type="text"
-            name="url_imagen"
-            placeholder="URL de la imagen"
-            value={newProduct.url_imagen}
-            onChange={handleInputChange}
-            required
-          />
-          <textarea
-            name="descripcion"
-            placeholder="Descripción de la obra"
-            value={newProduct.descripcion}
-            onChange={handleInputChange}
-            className="description-textarea"
-            required
-          ></textarea>
-          <input
-            type="text"
-            name="dimensiones"
-            placeholder="Dimensiones (e.g., 50x70 cm)"
-            value={newProduct.dimensiones}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            type="text"
-            name="tipo_obra"
-            placeholder="Tipo de obra (e.g., Pintura, Escultura)"
-            value={newProduct.tipo_obra}
-            onChange={handleInputChange}
-            required
-          />
-          <button type="submit">
-            {editingProductId ? "Actualizar Obra" : "Añadir Obra"}
-          </button>
-          {editingProductId && (
-            <button type="button" onClick={cancelEdit}>
-              Cancelar
-            </button>
-          )}
-        </form>
-      </div>
+      {isAuth && (
+        <>
+          <div className="add-product-form appear-slide-up">
+            <h2>
+              {editingProductId ? "EDITAR OBRA" : "AÑADIR UNA NUEVA OBRA"}
+            </h2>
+            <form onSubmit={handleFormSubmit}>
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre de la obra"
+                value={newProduct.nombre}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="number"
+                name="precio"
+                placeholder="Precio de la obra"
+                value={newProduct.precio}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="text"
+                name="url_imagen"
+                placeholder="URL de la imagen"
+                value={newProduct.url_imagen}
+                onChange={handleInputChange}
+                required
+              />
+              <textarea
+                name="descripcion"
+                placeholder="Descripción de la obra"
+                value={newProduct.descripcion}
+                onChange={handleInputChange}
+                className="description-textarea"
+                required
+              ></textarea>
+              <input
+                type="text"
+                name="dimensiones"
+                placeholder="Dimensiones (e.g., 50x70 cm)"
+                value={newProduct.dimensiones}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="text"
+                name="tipo_obra"
+                placeholder="Tipo de obra (e.g., Pintura, Escultura)"
+                value={newProduct.tipo_obra}
+                onChange={handleInputChange}
+                required
+              />
+              <button type="submit">
+                {editingProductId ? "Actualizar Obra" : "Añadir Obra"}
+              </button>
+              {editingProductId && (
+                <button type="button" onClick={cancelEdit}>
+                  Cancelar
+                </button>
+              )}
+            </form>
+          </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Descripción</th>
-            <th>Dimensiones</th>
-            <th>Tipo</th>
-            <th>Estado</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id} className="appear-fade-in">
-              <td>
-                <img src={product.url_imagen} alt={product.nombre} />
-              </td>
-              <td>{product.nombre}</td>
-              <td>${product.precio}</td>
-              <td>{product.descripcion}</td>
-              <td>{product.dimensiones}</td>
-              <td>{product.tipo_obra}</td>
-              <td>{product.estado}</td>
-              <td>
-                <button
-                  className="btn-edit"
-                  onClick={() => editProduct(product)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="btn-delete"
-                  onClick={() => deleteProduct(product.id)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+                <th>Dimensiones</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id} className="appear-fade-in">
+                  <td>
+                    <img src={product.url_imagen} alt={product.nombre} />
+                  </td>
+                  <td>{product.nombre}</td>
+                  <td>${product.precio}</td>
+                  <td>{product.descripcion}</td>
+                  <td>{product.dimensiones}</td>
+                  <td>{product.tipo_obra}</td>
+                  <td>{product.estado}</td>
+                  <td>
+                    <button
+                      className="btn-edit"
+                      onClick={() => editProduct(product)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => deleteProduct(product.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 }
