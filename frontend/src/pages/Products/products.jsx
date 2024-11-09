@@ -27,9 +27,7 @@ const ProductsPage = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
+  useEffect(() => {}, [products]);
 
   // Función para filtrar y ordenar productos
   const filteredProducts = products

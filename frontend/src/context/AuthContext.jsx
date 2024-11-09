@@ -18,13 +18,11 @@ const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState(null);
   useEffect(() => {
     if (Cookies.get("token")) {
-      console.log("paso");
       api
         .get("/auth/perfil", {
           withCredentials: true,
         })
         .then((response) => {
-          console.log(response.data);
           setUser(response.data);
           setIsAuth(true);
         })

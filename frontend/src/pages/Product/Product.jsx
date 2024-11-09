@@ -19,7 +19,6 @@ const ProductPage = () => {
     const fetchProduct = async () => {
       try {
         const fetchedProduct = await getProducto(id);
-        console.log(fetchedProduct);
         if (fetchedProduct) {
           setProduct(fetchedProduct);
         } else {

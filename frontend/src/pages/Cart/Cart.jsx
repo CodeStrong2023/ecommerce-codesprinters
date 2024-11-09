@@ -54,7 +54,6 @@ const Cart = () => {
       price: subtotal,
       ids: producstIds,
     });
-    console.log(response);
     setPreferenceId(response.data.id);
   };
   return (
