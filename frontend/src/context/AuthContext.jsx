@@ -33,6 +33,9 @@ const AuthProvider = ({ children }) => {
         });
     }
   }, []);
+  useEffect(() => {
+    console.log(isAuth);
+  }, [isAuth, user]);
   return (
     <AuthContext.Provider
       value={{
