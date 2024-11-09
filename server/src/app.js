@@ -32,6 +32,7 @@ app.use("/api/auth", authRoutes);
 // Rutas de Mercado Pago
 app.post("/api/create_preference", async (req, res) => {
   const preference = new Preference(client);
+  const items = req.body.ids;
   preference
     .create({
       body: {
@@ -43,9 +44,9 @@ app.post("/api/create_preference", async (req, res) => {
           },
         ],
         back_urls: {
-          success: "http://localhost:5173/success/",
-          failure: "http://localhost:5173/failure/",
-          pending: "http://localhost:5173/pending/",
+          success: `http://localhost:5173/success/?ids=${items}`,
+          failure: `http://localhost:5173/faliure/?ids=${items}`,
+          pending: `http://localhost:5173/pending/?ids=${items}`,
         },
         auto_return: "approved",
       },

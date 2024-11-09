@@ -7,7 +7,7 @@ import {
   deleteProducto,
   getProductos,
 } from "../../utils/api";
-
+import Cookies from "js-cookie";
 function Apps() {
   const initialProductState = {
     nombre: "",
@@ -17,7 +17,11 @@ function Apps() {
     dimensiones: "",
     tipo_obra: "",
   };
-
+  useEffect(() => {
+    if (Cookies.get("token") === null) {
+      window.location.href = "/login";
+    }
+  });
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState(initialProductState);
   const [editingProductId, setEditingProductId] = useState(null);
@@ -92,6 +96,7 @@ function Apps() {
       descripcion: product.descripcion,
       dimensiones: product.dimensiones,
       tipo_obra: product.tipo_obra,
+      estado: product.estado,
     });
   };
 
@@ -185,6 +190,7 @@ function Apps() {
             <th>Descripción</th>
             <th>Dimensiones</th>
             <th>Tipo</th>
+            <th>Estado</th>
             <th>Acción</th>
           </tr>
         </thead>
@@ -199,9 +205,18 @@ function Apps() {
               <td>{product.descripcion}</td>
               <td>{product.dimensiones}</td>
               <td>{product.tipo_obra}</td>
+              <td>{product.estado}</td>
               <td>
-                <button onClick={() => editProduct(product)}>Editar</button>
-                <button onClick={() => deleteProduct(product.id)}>
+                <button
+                  className="btn-edit"
+                  onClick={() => editProduct(product)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn-delete"
+                  onClick={() => deleteProduct(product.id)}
+                >
                   Eliminar
                 </button>
               </td>
