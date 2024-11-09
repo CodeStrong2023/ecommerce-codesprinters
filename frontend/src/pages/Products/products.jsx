@@ -112,7 +112,7 @@ const ProductsPage = () => {
               id="priceRange"
               className="filter-range"
               min="0"
-              max="40000"
+              max="1000000"
               step="500"
               value={priceRange[1]}
               onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
