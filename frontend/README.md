@@ -2,7 +2,7 @@
 # README FRONTEND
 
 
-![Logo](./frontend/public/home/CodeSprintersLogo.png)
+![Logo](./public/home/CodeSprintersLogo.png)
 
 
 ## Pasos a seguir 
@@ -67,7 +67,7 @@ Para podes correr el bakend vas a necesitar instalar las siguientes Dependencias
 
 # Estructura del proyecto 
 
-![Logo](./frontend/public/home/estructura_proyecto.jpg)
+![Logo](./public/home/estructura_proyecto.jpg)
 
 * Links de los programas usados 
 
