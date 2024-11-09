@@ -19,6 +19,7 @@ const ProductsPage = () => {
         ...product,
         precio: parseFloat(product.precio),
       }));
+      console.log(formattedProducts);
       const availableProducts = formattedProducts.filter(
         (product) => product.estado === "disponible"
       );
