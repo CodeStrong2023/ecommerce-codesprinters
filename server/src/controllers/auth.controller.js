@@ -15,7 +15,6 @@ export const registrarse = async (req, res, next) => {
     );
 
     const token = await createAccessToken({ id: result.rows[0].id });
-    console.log(result);
 
     //codigo de generacion de cookie
     res.cookie("token", token, {
