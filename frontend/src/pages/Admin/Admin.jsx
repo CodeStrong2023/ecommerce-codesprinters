@@ -8,9 +8,12 @@ import {
   getProductos,
 } from "../../utils/api";
 import Cookies from "js-cookie";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 function Apps() {
   const navigate = useNavigate();
+  const { isAuth } = useContext(AuthContext);
   const initialProductState = {
     nombre: "",
     precio: "",
@@ -36,7 +39,7 @@ function Apps() {
     fetchProducts();
   }, []);
   useEffect(() => {
-    if (Cookies.get("token") === undefined) {
+    if (!isAuth) {
       navigate("/");
     }
   }, []);
