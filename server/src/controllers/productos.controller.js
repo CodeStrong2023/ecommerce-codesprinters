@@ -89,8 +89,9 @@ export const actualizarProducto = async (req, res) => {
     dimensiones,
     tipo_obra,
     url_imagen,
+    estado,
   } = req.body;
-
+  console.log(req.body.estado);
   // Verificamos si el producto existe antes de intentar actualizarlo
   const consultaProducto = await pool.query(
     "SELECT * FROM productos_arte WHERE id = $1",
@@ -114,6 +115,7 @@ export const actualizarProducto = async (req, res) => {
     "dimensiones",
     "tipo_obra",
     "url_imagen",
+    "estado",
   ];
   const missingFields = requiredFields.filter(
     (field) => req.body[field] === undefined
@@ -129,9 +131,20 @@ export const actualizarProducto = async (req, res) => {
       dimensiones = COALESCE($5, dimensiones), 
       tipo_obra = COALESCE($6, tipo_obra), 
       url_imagen = COALESCE($7, url_imagen), 
-      updated_at = CURRENT_TIMESTAMP 
+      updated_at = CURRENT_TIMESTAMP,
+      estado = COALESCE($9, estado)
     WHERE id = $8 RETURNING *`,
-    [nombre, descripcion, autor, precio, dimensiones, tipo_obra, url_imagen, id]
+    [
+      nombre,
+      descripcion,
+      autor,
+      precio,
+      dimensiones,
+      tipo_obra,
+      url_imagen,
+      id,
+      estado,
+    ]
   );
 
   if (result.rowCount > 0) {

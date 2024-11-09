@@ -6,10 +6,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import axios from "axios";
+import { LoadingContext } from "../../context/LoadingContext";
 import { registerUser } from "../../utils/api";
 function Register() {
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoadingContext);
   const { setUser, setErrorsAuth, errorsAuth } = useContext(AuthContext);
   const {
     register,
@@ -19,9 +20,21 @@ function Register() {
   const baseURL = import.meta.env.VITE_BACKEND || "http://localhost:3000/api";
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    const res = await registerUser(data);
-    console.log(res);
+    setLoading(true);
+    try {
+      const res = await registerUser(data);
+      await setUser(res);
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      if (Array.isArray(error.response.data)) {
+        setErrorsAuth(error.response.data);
+      }
+      setErrorsAuth([error.response.data.message]);
+    }
   });
 
   return (

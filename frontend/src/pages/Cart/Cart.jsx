@@ -49,7 +49,11 @@ const Cart = () => {
     .reduce((acc, product) => acc + Number(product.precio), 0)
     .toFixed(2);
   const handleGetPreference = async () => {
-    const response = await api.post("/create_preference", { price: subtotal });
+    const producstIds = productsCart.map((product) => product.id);
+    const response = await api.post("/create_preference", {
+      price: subtotal,
+      ids: producstIds,
+    });
     console.log(response);
     setPreferenceId(response.data.id);
   };

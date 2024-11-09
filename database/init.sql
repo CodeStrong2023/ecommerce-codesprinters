@@ -23,3 +23,6 @@ CREATE TABLE usuarios(
 
 ALTER TABLE usuarios
 RENAME COLUMN "password" TO contrasena;
+
+ALTER TABLE productos_arte
+ADD estado VARCHAR(50) DEFAULT 'disponible';

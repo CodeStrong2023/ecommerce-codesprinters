@@ -19,7 +19,10 @@ const ProductsPage = () => {
         ...product,
         precio: parseFloat(product.precio),
       }));
-      setProducts(formattedProducts);
+      const availableProducts = formattedProducts.filter(
+        (product) => product.estado === "disponible"
+      );
+      setProducts(availableProducts);
     };
     fetchData();
   }, []);

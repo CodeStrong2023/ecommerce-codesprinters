@@ -11,10 +11,12 @@ import Confirmation from "./pages/Confirmation/Confirmation";
 import PaymentError from "./pages/Denied/Denied";
 import Register from "./pages/Register/Register";
 import "./App.css";
+import Loading from "./pages/Loading/Loading";
 function App() {
   return (
     <>
       <Navbar />
+      <Loading />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
