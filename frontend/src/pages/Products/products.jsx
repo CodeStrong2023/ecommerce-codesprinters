@@ -23,12 +23,11 @@ const ProductsPage = () => {
       const availableProducts = formattedProducts.filter(
         (product) => product.estado === "disponible"
       );
+      console.log(availableProducts);
       setProducts(availableProducts);
     };
     fetchData();
   }, []);
-
-  useEffect(() => {}, [products]);
 
   // Función para filtrar y ordenar productos
   const filteredProducts = products
