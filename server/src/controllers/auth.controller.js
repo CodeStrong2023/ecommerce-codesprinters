@@ -93,6 +93,8 @@ export const perfil = async (req, res) => {
 
     return res.json(result.rows[0]);
   } catch (error) {
-    next(error);
+    return res
+      .status(500)
+      .json({ message: "Error interno del servidor", error: error });
   }
 };
