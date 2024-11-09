@@ -83,7 +83,7 @@ export const salir = (req, res) => {
 export const perfil = async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT id,nombre,email,gravatar FROM usuarios WHERE id = $1",
+      "SELECT id,nombre,email FROM usuarios WHERE id = $1",
       [req.usuarioId]
     );
 
