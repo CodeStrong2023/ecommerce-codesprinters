@@ -1,75 +1,44 @@
 
-# README BACKEND 
-
-
+# ECOMMERCE-CODESPRINTERS 
 
 
 ![Logo](./frontend/public/home/CodeSprintersLogo.png)
 
 
-## Pasos a seguir 
-
-PASOS PARA INTALAR EL BACKEND
-
-* Clonar el repositorio en tu pc
-* Inicializar el proyecto  npm -y init (para generar un pakage json)
-* Instalar las dependencias npm i bcrypt cookie-parser express ... etc
-
-Crear el Servidor en PosgresSQL
-
-*  Dirigirse al archivo database/ini.sql
-*  En una queery del servidor correr los comandos que se encuentran en ese archivo
-
-Revisar la configuracion del Servidor local
-
-* Dirigirse al archivo server/src/router/config.js 
-* Revisar que en ese archivo las caracteristicas de tu servidor locar coincidan 
-* Si no coinciden cambiarlas 
-
-Levantar el BACKEND de forma local 
-
-* En la terminal ruta  ecommerse-codesprinters:  tirar el comando :  npm run dev 
-
-
-## Repositorio del Proyecto
-
-- [@Codesprinters](https://github.com/CodeStrong2023/ecommerce-codesprinters)
-
-
-## Dependencias 
-
-Para podes correr el bakend vas a necesitar instalar las siguientes Dependencias
-
-    "bcrypt"
-    "cookie-parser"
-    "express"
-    "express-promise-router"
-    "jsonwebtoken"
-    "md5"
-    "morgan"
-    "pg"
-    "server"
-    "zod"
-  
-  "devDependencies"
-
-    "eslint"
-    "nodemon"
-    
-
-## Contribuyentes 
-
-- [@Matias Moyano](https://github.com/matiasnmoyano)
-- [@Ferrero Genaro](https://github.com/GENAROENZO)
-- [@Francisco Corvalan](https://github.com/Francorvalan1212)
-- [@Joaquin Agüero](https://github.com/aguero101)
-- [@Juan Barrera](https://github.com/Juanbarrera12)
-
-# Estructura del proyecto 
-
+# ESTRUCTURA DEL PROYECTO 
 ![Logo](./frontend/public/home/estructura_proyecto.jpg)
 
-* Links de los programas usados 
+
+## ¿DE QUE SE TRATA?
+
+Este ecommerce es sobre venta de productos de arte
+En un futuro intentaremos seguir creciendo 
+
+## ¿DE DONDE VIENE LA IDEA?
+
+Obtuvimos la idea para este ecommerce tras ponernos en contacto
+con un grupo de artistas de San Rafael.
+Este grupo llamado Intuisiones esta formado por docentes y Artistas de nuestro Departamento
+que a menudo realizan muestras de artes en conjunto, ellos no cuentan con pagina web 
+y desean un lugar donde poder vender sus obras, accesible para todos.
+
+## ¿QUE BUSCAMOS?
+
+Buscamos realizar una ecommerse funcional para poder comercializarlo.
+En este momento esta funcionando correctamente.
+Pretendemos en un futuro agregarle una sección con los perfiles de los artistas
+que se registren en nuestra aplicación, para que el cliente pueda conocerlos mejor 
+
+## GUIA PARA CORRER EL PROYECTO 
+
+Para correr este proyecto deberas seguir las instrucciones de los dos archivos tipo README.md 
+ubicados,uno en la sección de nuestro codigo Frontend y otro en la sección de nuestro codigo Backend.
+
+Rutas de acceso
+* Frontend /ECOMMERCE-CODESPRINTERS/frontend/README.md
+* Backend  /ECOMMERCE-CODESPRINTERS/src/README.md
+
+## Links de los Programas que necesitas 
 
  [Node.js](https://nodejs.org/en/)
 
@@ -78,3 +47,18 @@ Para podes correr el bakend vas a necesitar instalar las siguientes Dependencias
  [postgresql](https://www.postgresql.org)
 
  [jwt](https://www.postgresql.org)
+
+## LINK DEL REPOSITORIO 
+
+- [@ECOMMERCE-CODESPRINTERS](https://github.com/CodeStrong2023/ecommerce-codesprinters)
+ 
+## ¿QUIENES SOMOS?
+
+   Somos un grupo de estudiantes de U.T.N San Rafael Tec.En programación
+   te podes contantar con nosotros atravez de nuentros perfiles 
+
+- [@Matias Moyano](https://github.com/matiasnmoyano)
+- [@Ferrero Genaro](https://github.com/GENAROENZO)
+- [@Francisco Corvalan](https://github.com/Francorvalan1212)
+- [@Joaquin Agüero](https://github.com/aguero101)
+- [@Juan Barrera](https://github.com/Juanbarrera12)
