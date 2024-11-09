@@ -7,9 +7,9 @@ const Home = () => {
       <div className="home-banner">
         <img className="home-img" src="home/paleta.jpg" alt="Arte"></img>
         <div className="text-overlay">
-          <h1 className="home-title">ECOMMERCE ARTE</h1>
+          <h1 className="home-title">OBRA VIVA</h1>
           <p className="home-desc">
-            ¡Bienvenido a Ecommerce Arte! Aquí encontrarás una gran variedad de
+            ¡Bienvenido a OBRA VIVA! Aquí encontrarás una gran variedad de
             productos artísticos, desde pinturas hasta esculturas. ¡No dudes en
             contactarnos si tienes alguna duda!
           </p>

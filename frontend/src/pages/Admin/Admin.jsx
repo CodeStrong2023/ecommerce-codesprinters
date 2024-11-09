@@ -8,7 +8,9 @@ import {
   getProductos,
 } from "../../utils/api";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 function Apps() {
+  const navigate = useNavigate();
   const initialProductState = {
     nombre: "",
     precio: "",
@@ -17,11 +19,6 @@ function Apps() {
     dimensiones: "",
     tipo_obra: "",
   };
-  useEffect(() => {
-    if (Cookies.get("token") === null) {
-      window.location.href = "/login";
-    }
-  });
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState(initialProductState);
   const [editingProductId, setEditingProductId] = useState(null);
@@ -38,7 +35,11 @@ function Apps() {
 
     fetchProducts();
   }, []);
-
+  useEffect(() => {
+    if (Cookies.get("token") === undefined) {
+      navigate("/");
+    }
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });

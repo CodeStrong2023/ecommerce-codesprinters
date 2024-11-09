@@ -25,9 +25,7 @@ const Confirmation = ({ orderId }) => {
       localStorage.removeItem("cart");
       ids.forEach(async (id) => {
         const response = await updateProducto(id, { estado: "vendido" }).then(
-          (response) => {
-            console.log(response);
-          }
+          (response) => {}
         );
       });
     };
@@ -37,7 +35,6 @@ const Confirmation = ({ orderId }) => {
       handleApprovedPayment(itemsIds);
     }
     const fetchOrderDetails = async () => {};
-    console.log(params);
     if (orderId) {
       fetchOrderDetails();
     }

@@ -4,20 +4,23 @@ import MenuList from "../MenuList/MenuList";
 import { signout } from "../../utils/api";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-
+import { LoadingContext } from "../../context/LoadingContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const { isAuth } = useContext(AuthContext);
-
+  const { setLoading } = useContext(LoadingContext);
   const handleLogout = async () => {
+    setLoading(true);
     await signout();
-    console.log("saliendo");
-    /* navigate("/"); */
+    setTimeout(() => {
+      navigate("/");
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <nav className="navbar-container">
-      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-logo">OBRA VIVA</div>
       <ul className="navbar-hrefs">
         <button className="navbar-item" onClick={() => navigate("/")}>
           Inicio
