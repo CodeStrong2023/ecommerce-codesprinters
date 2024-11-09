@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState(null);
   useEffect(() => {
-    if (Cookies.get("token")) {
+    if (Cookies.get("token") !== undefined) {
       api
         .get("/auth/perfil", {
           withCredentials: true,
@@ -35,6 +35,7 @@ const AuthProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     console.log(isAuth);
+    console.log(Cookies.get("token"));
   }, [isAuth, user]);
   return (
     <AuthContext.Provider
