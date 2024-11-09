@@ -91,7 +91,6 @@ export const actualizarProducto = async (req, res) => {
     url_imagen,
     estado,
   } = req.body;
-  console.log(req.body.estado);
   // Verificamos si el producto existe antes de intentar actualizarlo
   const consultaProducto = await pool.query(
     "SELECT * FROM productos_arte WHERE id = $1",

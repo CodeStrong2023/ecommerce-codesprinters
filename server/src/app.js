@@ -44,15 +44,14 @@ app.post("/api/create_preference", async (req, res) => {
           },
         ],
         back_urls: {
-          success: `http://localhost:5173/success/?ids=${items}`,
-          failure: `http://localhost:5173/faliure/?ids=${items}`,
-          pending: `http://localhost:5173/pending/?ids=${items}`,
+          success: `https://pleasant-intuition-production.up.railway.app/success/?ids=${items}`,
+          failure: `https://pleasant-intuition-production.up.railway.app/faliure/?ids=${items}`,
+          pending: `https://pleasant-intuition-production.up.railway.app/pending/?ids=${items}`,
         },
         auto_return: "approved",
       },
     })
     .then((response) => {
-      console.log(response);
       res.json({
         id: response.id,
       });
