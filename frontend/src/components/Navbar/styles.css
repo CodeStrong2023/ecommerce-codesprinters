@@ -1,70 +1,106 @@
+/* Estilo general */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Navbar */
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #fff;
-  color: #000;
-  height: 80px;
-  position: fixed; /* Fija la navbar en la parte superior */
+  background-color: #333;
+  color: #fff;
+  height: 70px;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Hace que la navbar ocupe todo el ancho */
-  z-index: 1000; /* Asegura que la navbar esté encima de otros elementos */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra para destacar la navbar */
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
+
+.navbar-container:hover {
+  background-color: #444;
+}
+
+.navbar-logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #27ae60cc;
+}
+
+/* Navbar links */
+.navbar-hrefs {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar-item {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-item:hover {
+  color: #27ae60cc;
+  border-color: #27ae60cc;
+}
+
+/* Carrito de compras */
 .cart {
   width: 50px;
   height: 30px;
-  background-image: linear-gradient(#3bd37dcc, #28ae60cc);
-  border: none;
-  border-radius: 5px;
-  color: rgb(255, 255, 255);
-  font-weight: 600;
+  border: 2px solid #27ae60cc;
+  border-radius: 8px;
+  color: #27ae60cc;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   cursor: pointer;
-  box-shadow: 2px 3px 0px #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.cart:hover {
+  background-color: #27ae60cc;
+  color: #333;
+}
+
 .cartIcon {
   width: 18px;
   height: fit-content;
 }
 
 .cartIcon path {
-  fill: rgb(255, 255, 255);
+  fill: currentColor;
 }
-.navbar-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #000;
-}
-.navbar-hrefs {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.navbar-item {
-  font-size: 1rem;
-  font-weight: 700;
-  background-color: #fff;
-  border: none;
-  color: #56b280;
-  text-decoration: none;
-  cursor: pointer;
-}
-.navbar-item:hover {
-  color: #128546;
-  text-decoration: underline;
-  text-decoration: none;
-  cursor: pointer;
-}
+
+/* Usuario */
 .navbar-user {
+  display: none; /* Oculta esta sección en pantallas grandes */
   width: 3%;
-  display: none;
   justify-content: space-between;
   align-items: center;
 }
@@ -73,76 +109,49 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 0;
+  padding: 10px;
   gap: 8px;
   height: 31px;
   width: 150px;
-  border: none;
-  background: #27ae60cc;
-  border-radius: 5px;
+  border: 2px solid #27ae60cc;
+  border-radius: 8px;
   cursor: pointer;
   position: relative;
-  color: #fff;
+  color: #27ae60cc;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.usuario:hover {
+  background: #27ae60cc;
+  color: #333;
 }
 
 .usuario .span {
   border-radius: 20%;
-  background-color: #128546;
+  background-color: #444;
   padding: 5px;
   position: absolute;
   left: 0;
 }
 
-.usuario:hover {
-  background: #128546;
-}
-
-.usuario:hover .svg-icon {
-  animation: slope 0.8s linear infinite;
-}
-
-@keyframes slope {
-  0% {
+/* Animaciones y efectos */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  50% {
-    transform: rotate(15deg);
-  }
-
-  100% {
+  to {
+    opacity: 1;
   }
 }
 
-/* From Uiverse.io by vinodjangid07 */
-.cart {
-  width: 50px;
-  height: 30px;
-  background-image: linear-gradient(#3bd37dcc, #28ae60cc);
-  border: none;
-  border-radius: 5px;
-  color: rgb(255, 255, 255);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  box-shadow: 2px 3px 0px #ddd;
+.navbar-container,
+.navbar-item,
+.cart,
+.usuario {
+  animation: fadeIn 0.8s ease-out;
 }
 
-.cartIcon {
-  width: 18px;
-  height: fit-content;
-}
-
-.cartIcon path {
-  fill: rgb(255, 255, 255);
-}
-
-.cart:hover {
-  background-color: #128546;
-}
-
+/* Responsive para dispositivos móviles */
 @media (max-width: 768px) {
   .navbar-hrefs {
     display: none;
@@ -151,8 +160,6 @@
     display: flex;
   }
   .navbar-logo {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #000;
+    font-size: 1.2rem;
   }
 }
